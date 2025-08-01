@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerte de sécurité</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 20px 10px;
+        }
+
+        .alert-icon {
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .alert-message {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #856404;
+        }
+
+        .details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .actions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .secure-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            margin: 10px 5px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🚨 Alerte de Sécurité</h1>
+        </div>
+        <div class="content">
+            <div class="alert-icon">⚠️</div>
+
+            <div class="alert-message">
+                <strong>Bonjour <%= firstName %>
+                        <%= lastName %>,</strong><br><br>
+                Nous avons détecté une tentative de connexion suspecte sur votre compte AdsCity.
+                Cette tentative semble provenir d'une source non autorisée.
+            </div>
+
+            <div class="details">
+                <strong>📋 Détails de la tentative :</strong><br>
+                • Date et heure : <%= alertTime %><br>
+                    • Adresse IP : <%= ip || 'Non disponible' %><br>
+                        • Pays : <%= country || 'Non disponible' %><br>
+                            • Ville : <%= city || 'Non disponible' %><br>
+                                • Navigateur : <%= browser || 'Non disponible' %><br>
+                                    • Système : <%= os || 'Non disponible' %><br>
+                                        • Périphérique : <%= device || 'Non disponible' %><br>
+                                            • Compte ciblé : <%= email %>
+            </div>
+
+            <div class="actions">
+                <strong>🛡️ Actions recommandées :</strong><br><br>
+
+                <strong>Si c'était vous :</strong><br>
+                • Aucune action n'est requise<br>
+                • Vous pouvez ignorer cet email en toute sécurité<br><br>
+
+                <strong>Si ce n'était PAS vous :</strong><br>
+                • Changez immédiatement votre mot de passe<br>
+                • Vérifiez l'activité récente de votre compte<br>
+                • Activez l'authentification à deux facteurs<br>
+                • Contactez notre support si nécessaire
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="<%= appUrl %>/auth/signin" class="secure-button">
+                    Sécuriser mon compte
+                </a>
+                <a href="<%= appUrl %>/contact" class="secure-button"
+                    style="background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);">
+                    Contacter le support
+                </a>
+            </div>
+
+            <div
+                style="background: #ffebee; border: 1px solid #ffcdd2; border-radius: 8px; padding: 15px; margin: 20px 0; font-size: 14px; color: #c62828;">
+                <strong>⚠️ Important :</strong> Si vous n'avez pas demandé cette réinitialisation,
+                votre compte pourrait être compromis. Agissez rapidement pour le sécuriser.
+            </div>
+        </div>
+        <div class="footer">
+            <p>
+                <strong>Cet email a été envoyé automatiquement par notre système de sécurité</strong><br>
+                AdsCity - Équipe Sécurité<br>
+                Support urgent : security@adscity.net
+            </p>
+            <p style="margin-top: 15px;">
+                © <%= year %> AdsCity. Tous droits réservés.
+            </p>
+        </div>
+    </div>
+    </div>
+</body>

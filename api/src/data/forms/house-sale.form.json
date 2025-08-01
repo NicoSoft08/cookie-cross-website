@@ -1,0 +1,108 @@
+{
+    "slug": "house-sale",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre de l’annonce",
+            "name": "title",
+            "placeholder": "Ex : Maison 4 pièces avec jardin à Cocody Riviera",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "name": "propertyType",
+            "label": "Type de bien",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Maison",
+                "Appartement",
+                "Villa",
+                "Immeuble",
+                "Autre"
+            ]
+        },
+        {
+            "name": "location",
+            "label": "Localisation",
+            "type": "text",
+            "required": true,
+            "placeholder": "Ex : Cocody, Yopougon, Abobo, etc."
+        },
+        {
+            "name": "totalArea",
+            "label": "Superficie totale (m²)",
+            "type": "number",
+            "required": true,
+            "min": 1
+        },
+        {
+            "name": "rooms",
+            "label": "Nombre de pièces",
+            "type": "number",
+            "required": true,
+            "min": 1
+        },
+        {
+            "name": "floor",
+            "label": "Étage (si applicable)",
+            "type": "text",
+            "required": false,
+            "placeholder": "Ex : RDC, 1er étage, 2e étage"
+        },
+        {
+            "name": "price",
+            "label": "Prix (FCFA)",
+            "type": "number",
+            "required": true,
+            "min": 100000
+        },
+        {
+            "name": "propertyFeatures",
+            "label": "Caractéristiques du bien",
+            "type": "checkbox",
+            "required": false,
+            "options": [
+                "Garage",
+                "Jardin",
+                "Piscine",
+                "Balcon / Terrasse",
+                "Climatisation",
+                "Sécurité 24h/24",
+                "Raccordement à l’eau",
+                "Raccordement à l’électricité",
+                "Connexion internet",
+                "Meublé"
+            ]
+        },
+        {
+            "name": "photos",
+            "label": "Photos du bien",
+            "type": "file",
+            "multiple": true,
+            "accept": "image/*",
+            "required": false
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Ex : Propriété calme proche de toutes commodités, rénovée récemment..."
+        },
+        {
+            "name": "documentStatus",
+            "label": "Statut des documents",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Titre foncier disponible",
+                "Acte de vente uniquement",
+                "Sans documents officiels"
+            ]
+        }
+    ]
+}

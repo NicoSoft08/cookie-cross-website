@@ -1,0 +1,55 @@
+{
+    "fields": [
+        {
+            "name": "title",
+            "label": "Titre",
+            "type": "text",
+            "placeholder": "Ex: Chaussures de sport Nike",
+            "required": true
+        },
+        {
+            "name": "shoeType",
+            "label": "Type de chaussure",
+            "type": "select",
+            "options": [
+                "Baskets",
+                "Chaussures de ville",
+                "Mocassins",
+                "Bottes",
+                "Sandales",
+                "Tongs",
+                "Chaussures de sport",
+                "Espadrilles",
+                "Autre"
+            ],
+            "required": true
+        },
+        {
+            "name": "brand",
+            "label": "Marque",
+            "type": "select",
+            "required": true,
+            "placeholder": "Nike, Adidas, Gucci...",
+            "options": []
+        },
+        {
+            "name": "size",
+            "label": "Pointure",
+            "type": "checkbox",
+            "options": [
+                "38",
+                "39",
+                "40",
+                "41",
+                "42",
+                "43",
+                "44",
+                "45",
+                "46",
+                "47",
+                "Autre"
+            ],
+            "required": true
+        }
+    ]
+}

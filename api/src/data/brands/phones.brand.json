@@ -1,0 +1,222 @@
+[
+    {
+        "label": "360",
+        "value": "360",
+        "icon": "360.png"
+    },
+    {
+        "label": "Acer",
+        "value": "acer",
+        "icon": "acer.png"
+    },
+    {
+        "label": "Aermoo",
+        "value": "aermoo",
+        "icon": "aermoo.png"
+    },
+    {
+        "label": "AGM",
+        "value": "agm",
+        "icon": "agm.png"
+    },
+    {
+        "label": "Alcatel",
+        "value": "alcatel",
+        "icon": "alcatel.png"
+    },
+    {
+        "label": "Amigoo",
+        "value": "amigoo",
+        "icon": "amigoo.png"
+    },
+    {
+        "label": "Apple",
+        "value": "apple",
+        "icon": "apple.png"
+    },
+    {
+        "label": "Archos",
+        "value": "archos",
+        "icon": "archos.png"
+    },
+    {
+        "label": "Asus",
+        "value": "asus",
+        "icon": "asus.png"
+    },
+    {
+        "label": "BlackBerry",
+        "value": "blackberry",
+        "icon": "blackberry.png"
+    },
+    {
+        "label": "Black Shark",
+        "value": "black-shark",
+        "icon": "black-shark.png"
+    },
+    {
+        "label": "Blackview",
+        "value": "blackview",
+        "icon": "blackview.png"
+    },
+    {
+        "label": "Doogee",
+        "value": "doogee",
+        "icon": "doogee.png"
+    },
+    {
+        "label": "Google",
+        "value": "google",
+        "icon": "google.png"
+    },
+    {
+        "label": "Haier",
+        "value": "haier",
+        "icon": "haier.png"
+    },
+    {
+        "label": "Hisense",
+        "value": "hisense",
+        "icon": "hisense.png"
+    },
+    {
+        "label": "HONOR",
+        "value": "honor",
+        "icon": "honor.png"
+    },
+    {
+        "label": "HTC",
+        "value": "htc",
+        "icon": "htc.png"
+    },
+    {
+        "label": "Huawei",
+        "value": "huawei",
+        "icon": "huawei.png"
+    },
+    {
+        "label": "Infinix",
+        "value": "infinix",
+        "icon": "infinix.png"
+    },
+    {
+        "label": "itel",
+        "value": "itel",
+        "icon": "itel.png"
+    },
+    {
+        "label": "Lenovo",
+        "value": "lenovo",
+        "icon": "lenovo.png"
+    },
+    {
+        "label": "LG",
+        "value": "lg",
+        "icon": "lg.png"
+    },
+    {
+        "label": "Meizu",
+        "value": "meizu",
+        "icon": "meizu.png"
+    },
+    {
+        "label": "Microsoft",
+        "value": "microsoft",
+        "icon": "microsoft.png"
+    },
+    {
+        "label": "Motorola",
+        "value": "motorola",
+        "icon": "motorola.png"
+    },
+    {
+        "label": "Nokia",
+        "value": "nokia",
+        "icon": "nokia.png"
+    },
+    {
+        "label": "OnePlus",
+        "value": "oneplus",
+        "icon": "oneplus.png"
+    },
+    {
+        "label": "OPPO",
+        "value": "oppo",
+        "icon": "oppo.png"
+    },
+    {
+        "label": "Panasonic",
+        "value": "panasonic",
+        "icon": "panasonic.png"
+    },
+    {
+        "label": "PHILIPS",
+        "value": "philips",
+        "icon": "philips.png"
+    },
+    {
+        "label": "POCO",
+        "value": "poco",
+        "icon": "poco.png"
+    },
+    {
+        "label": "realme",
+        "value": "realme",
+        "icon": "realme.png"
+    },
+    {
+        "label": "Samsung",
+        "value": "samsung",
+        "icon": "samsung.png"
+    },
+    {
+        "label": "Sharp",
+        "value": "sharp",
+        "icon": "sharp.png"
+    },
+    {
+        "label": "Sony",
+        "value": "sony",
+        "icon": "sony.png"
+    },
+    {
+        "label": "TCL",
+        "value": "tcl",
+        "icon": "tcl.png"
+    },
+    {
+        "label": "Tecno",
+        "value": "tecno",
+        "icon": "tecno.png"
+    },
+    {
+        "label": "Vivo",
+        "value": "vivo",
+        "icon": "vivo.png"
+    },
+    {
+        "label": "Vodafone",
+        "value": "vodafone",
+        "icon": "vodafone.png"
+    },
+    {
+        "label": "Wiko",
+        "value": "wiko",
+        "icon": "wiko.png"
+    },
+    {
+        "label": "Xiaomi",
+        "value": "xiaomi",
+        "icon": "xiaomi.png"
+    },
+    {
+        "label": "Zopo",
+        "value": "zopo",
+        "icon": "zopo.png"
+    },
+    {
+        "label": "ZTE",
+        "value": "zte",
+        "icon": "zte.png"
+    }
+]

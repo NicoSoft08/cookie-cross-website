@@ -1,0 +1,154 @@
+{
+    "slug": "furnished-rent",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre de l’annonce",
+            "name": "title",
+            "placeholder": "Ex : Studio meublé à Cocody, Riviera 2",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "name": "propertyType",
+            "label": "Type de bien",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Studio",
+                "Appartement",
+                "Maison",
+                "Chambre",
+                "Autre"
+            ]
+        },
+        {
+            "name": "location",
+            "label": "Localisation",
+            "type": "text",
+            "required": true,
+            "placeholder": "Ex : Abidjan, Marcory, Zone 4"
+        },
+        {
+            "name": "totalArea",
+            "label": "Superficie (m²)",
+            "type": "number",
+            "required": true,
+            "min": 1
+        },
+        {
+            "name": "rooms",
+            "label": "Nombre de pièces",
+            "type": "number",
+            "required": true,
+            "min": 1
+        },
+        {
+            "name": "floor",
+            "label": "Étage",
+            "type": "text",
+            "required": false,
+            "placeholder": "Ex : RDC, 1er étage, etc."
+        },
+        {
+            "name": "rentPrice",
+            "label": "Loyer mensuel (FCFA)",
+            "type": "number",
+            "required": true,
+            "min": 10000
+        },
+        {
+            "name": "deposit",
+            "label": "Caution (FCFA)",
+            "type": "number",
+            "required": false,
+            "min": 0
+        },
+        {
+            "name": "furnitureIncluded",
+            "label": "Mobilier inclus",
+            "type": "checkbox",
+            "required": false,
+            "options": [
+                "Lit",
+                "Table à manger",
+                "Canapé",
+                "Chaises",
+                "Armoire",
+                "Bureau"
+            ]
+        },
+        {
+            "name": "appliancesIncluded",
+            "label": "Électroménagers inclus",
+            "type": "checkbox",
+            "required": false,
+            "options": [
+                "Climatiseur",
+                "Réfrigérateur",
+                "Cuisinière",
+                "Micro-ondes",
+                "Télévision",
+                "Machine à laver",
+                "Ventilateur",
+                "Bouilloire"
+            ]
+        },
+        {
+            "name": "utilities",
+            "label": "Charges incluses",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Aucune",
+                "Eau incluse",
+                "Électricité incluse"
+            ]
+        },
+        {
+            "name": "leaseTerm",
+            "label": "Durée du bail",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Courte durée (jours/semaines)",
+                "1 mois",
+                "3 mois",
+                "6 mois ou plus"
+            ]
+        },
+        {
+            "name": "additionalFeatures",
+            "label": "Caractéristiques supplémentaires",
+            "type": "checkbox",
+            "required": false,
+            "options": [
+                "Connexion internet",
+                "Service de nettoyage",
+                "Sécurité 24h/24",
+                "Balcon / Terrasse",
+                "Vue dégagée",
+                "Proximité commerces",
+                "Stationnement inclus"
+            ]
+        },
+        {
+            "name": "photos",
+            "label": "Photos du bien",
+            "type": "file",
+            "multiple": true,
+            "accept": "image/*",
+            "required": false
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Décrivez les conditions, équipements, quartier, etc."
+        }
+    ]
+}

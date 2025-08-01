@@ -1,0 +1,98 @@
+{
+    "slug": "fresh-products",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre de l’annonce",
+            "name": "title",
+            "placeholder": "Ex : Pommes bio de saison",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "name": "productCategory",
+            "label": "Catégorie du produit",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Légumes et herbes",
+                "Fruits et baies",
+                "Produits laitiers",
+                "Viande et volaille",
+                "Poisson et fruits de mer",
+                "Œufs",
+                "Champignons",
+                "Miel et produits apicoles",
+                "Autre"
+            ]
+        },
+        {
+            "name": "productType",
+            "label": "Type de produit",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "quantity",
+            "label": "Quantité/Poids",
+            "type": "text",
+            "required": true,
+            "placeholder": "Ex : 1 kg, 5 pièces, 1 paquet"
+        },
+        {
+            "name": "price",
+            "label": "Prix (FCFA)",
+            "type": "number",
+            "required": true,
+            "min": 500
+        },
+        {
+            "name": "origin",
+            "label": "Origine",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Production personnelle",
+                "Produits fermiers",
+                "Fournitures en gros",
+                "Récolte saisonnière"
+            ]
+        },
+        {
+            "name": "freshness",
+            "label": "Durée de fraîcheur / DLC",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "delivery",
+            "label": "Livraison",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Retrait en main propre",
+                "Livraison par coursier",
+                "Livraison par transport",
+                "Pas de livraison"
+            ]
+        },
+        {
+            "name": "photos",
+            "label": "Photos",
+            "type": "file",
+            "multiple": true,
+            "accept": "image/*",
+            "required": false
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Description du produit, conditions de conservation, particularités de production"
+        }
+    ]
+}

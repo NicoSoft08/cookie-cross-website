@@ -1,0 +1,101 @@
+{
+    "slug": "grocery",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre de l’annonce",
+            "name": "title",
+            "placeholder": "Ex : Riz parfumé thaïlandais 5 kg",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "name": "productCategory",
+            "label": "Catégorie du produit",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Pâtes, Riz & Céréales",
+                "Huiles & Condiments",
+                "Épices & Herbes",
+                "Produits en conserve",
+                "Biscuits & Gâteaux",
+                "Confiseries & Chocolats",
+                "Boissons non alcoolisées",
+                "Café & Thé",
+                "Petit déjeuner & Céréales",
+                "Produits sans gluten",
+                "Produits bio",
+                "Autre"
+            ]
+        },
+        {
+            "name": "brand",
+            "label": "Marque (optionnel)",
+            "type": "text",
+            "required": false
+        },
+        {
+            "name": "productName",
+            "label": "Nom du produit",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "quantity",
+            "label": "Quantité / Contenance",
+            "type": "text",
+            "required": true,
+            "placeholder": "Ex : 500 g, 1 L, pack de 6"
+        },
+        {
+            "name": "price",
+            "label": "Prix (FCFA)",
+            "type": "number",
+            "required": true,
+            "min": 500
+        },
+        {
+            "name": "expirationDate",
+            "label": "Date d’expiration",
+            "type": "date",
+            "required": true
+        },
+        {
+            "name": "storageConditions",
+            "label": "Conditions de conservation",
+            "type": "text",
+            "required": false
+        },
+        {
+            "name": "delivery",
+            "label": "Mode de livraison",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Retrait en main propre",
+                "Livraison locale",
+                "Expédition nationale",
+                "Pas de livraison"
+            ]
+        },
+        {
+            "name": "photos",
+            "label": "Photos",
+            "type": "file",
+            "multiple": true,
+            "accept": "image/*",
+            "required": false
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Informations supplémentaires sur le produit, la provenance, etc."
+        }
+    ]
+}

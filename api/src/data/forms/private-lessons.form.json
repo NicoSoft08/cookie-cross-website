@@ -1,0 +1,114 @@
+{
+    "slug": "private-lessons",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre de l’annonce",
+            "name": "title",
+            "placeholder": "Ex: Cours de maths niveau lycée à domicile",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "type": "checkbox",
+            "label": "Matière",
+            "name": "subject",
+            "required": true,
+            "options": [
+                "Mathématiques",
+                "Français",
+                "Anglais",
+                "Physique-Chimie",
+                "SVT",
+                "Informatique",
+                "Comptabilité",
+                "Philosophie",
+                "Arabe",
+                "Allemand",
+                "Espagnol",
+                "Autre"
+            ]
+        },
+        {
+            "type": "select",
+            "label": "Niveau d’enseignement",
+            "name": "level",
+            "required": true,
+            "options": [
+                "Primaire",
+                "Collège",
+                "Lycée",
+                "Université",
+                "Autre"
+            ]
+        },
+        {
+            "type": "number",
+            "label": "Tarif par séance (FCFA)",
+            "name": "price",
+            "placeholder": "Ex: 5000",
+            "required": true,
+            "min": 1,
+            "step": 100
+        },
+        {
+            "type": "number",
+            "label": "Durée d'une séance (minutes)",
+            "name": "duration",
+            "placeholder": "Ex: 60",
+            "required": true,
+            "min": 30,
+            "step": 15
+        },
+        {
+            "type": "checkbox",
+            "label": "Format du cours",
+            "name": "format",
+            "required": true,
+            "options": [
+                "Présentiel",
+                "En ligne",
+                "À domicile"
+            ]
+        },
+        {
+            "type": "text",
+            "label": "Ville ou localité",
+            "name": "location",
+            "placeholder": "Ex: Abidjan - Cocody",
+            "required": false
+        },
+        {
+            "type": "number",
+            "label": "Années d’expérience",
+            "name": "experience",
+            "placeholder": "Ex: 3",
+            "required": false,
+            "min": 0
+        },
+        {
+            "type": "textarea",
+            "label": "Parcours académique",
+            "name": "education",
+            "placeholder": "Ex: Licence en mathématiques, Master en pédagogie...",
+            "required": false
+        },
+        {
+            "type": "textarea",
+            "label": "Description du cours",
+            "name": "description",
+            "placeholder": "Détaillez le contenu, les objectifs, votre méthode, etc.",
+            "required": true
+        },
+        {
+            "type": "textarea",
+            "label": "Disponibilités horaires",
+            "name": "schedule",
+            "placeholder": "Ex: Lundi, mercredi et samedi après-midi",
+            "required": false
+        }
+    ]
+}

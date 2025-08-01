@@ -1,0 +1,397 @@
+[
+    {
+        "label": "Abarth",
+        "value": "abarth",
+        "icon": "abarth.png"
+    },
+    {
+        "label": "Acura",
+        "value": "acura",
+        "icon": "acura.png"
+    },
+    {
+        "label": "Alfa Roméo",
+        "value": "alfa-romeo",
+        "icon": "alfa-romeo.png"
+    },
+    {
+        "label": "Alpina",
+        "value": "alpina",
+        "icon": "alpina.png"
+    },
+    {
+        "label": "Alpine",
+        "value": "alpine",
+        "icon": "alpine.png"
+    },
+    {
+        "label": "Ariel",
+        "value": "ariel",
+        "icon": "ariel.png"
+    },
+    {
+        "label": "Aston Martin",
+        "value": "aston-martin",
+        "icon": "aston-martin.png"
+    },
+    {
+        "label": "Audi",
+        "value": "audi",
+        "icon": "audi.png"
+    },
+    {
+        "label": "Aurus",
+        "value": "aurus",
+        "icon": "aurus.png"
+    },
+    {
+        "label": "Austin",
+        "value": "austin",
+        "icon": "austin.png"
+    },
+    {
+        "label": "Bentley",
+        "value": "bentley",
+        "icon": "bentley.png"
+    },
+    {
+        "label": "Bertone",
+        "value": "bertone",
+        "icon": "bertone.png"
+    },
+    {
+        "label": "BMW",
+        "value": "bmw",
+        "icon": "bmw.png"
+    },
+    {
+        "label": "Brillance",
+        "value": "brillance",
+        "icon": "brillance.png"
+    },
+    {
+        "label": "Bugatti",
+        "value": "bugatti",
+        "icon": "bugatti.png"
+    },
+    {
+        "label": "Cadillac",
+        "value": "cadillac",
+        "icon": "cadillac.png"
+    },
+    {
+        "label": "Changan",
+        "value": "changan",
+        "icon": "changan.png"
+    },
+    {
+        "label": "Chery",
+        "value": "chery",
+        "icon": "chery.png"
+    },
+    {
+        "label": "Chevrolet",
+        "value": "chevrolet",
+        "icon": "chevrolet.png"
+    },
+    {
+        "label": "Chrysler",
+        "value": "chrysler",
+        "icon": "chrysler.png"
+    },
+    {
+        "label": "Citroen",
+        "value": "citroen",
+        "icon": "citroen.png"
+    },
+    {
+        "label": "Dacia",
+        "value": "dacia",
+        "icon": "dacia.png"
+    },
+    {
+        "label": "Datsun",
+        "value": "datsun",
+        "icon": "datsun.png"
+    },
+    {
+        "label": "Dodge",
+        "value": "dodge",
+        "icon": "dodge.png"
+    },
+    {
+        "label": "Donfeng",
+        "value": "donfeng",
+        "icon": "donfeng.png"
+    },
+    {
+        "label": "DS",
+        "value": "ds",
+        "icon": "ds.png"
+    },
+    {
+        "label": "Ferrari",
+        "value": "ferrari",
+        "icon": "ferrari.png"
+    },
+    {
+        "label": "FIAT",
+        "value": "fiat",
+        "icon": "fiat.png"
+    },
+    {
+        "label": "Ford",
+        "value": "ford",
+        "icon": "ford.png"
+    },
+    {
+        "label": "GAC",
+        "value": "gac",
+        "icon": "gac.png"
+    },
+    {
+        "label": "Geely",
+        "value": "geely",
+        "icon": "geely.png"
+    },
+    {
+        "label": "GMC",
+        "value": "gmc",
+        "icon": "gmc.png"
+    },
+    {
+        "label": "Great Wall",
+        "value": "great-wall",
+        "icon": "great-wall.png"
+    },
+    {
+        "label": "Honda",
+        "value": "honda",
+        "icon": "honda.png"
+    },
+    {
+        "label": "Hummer",
+        "value": "hummer",
+        "icon": "hummer.png"
+    },
+    {
+        "label": "Hyundai",
+        "value": "hyundai",
+        "icon": "hyundai.png"
+    },
+    {
+        "label": "Infiniti",
+        "value": "infiniti",
+        "icon": "infiniti.png"
+    },
+    {
+        "label": "Isuzu",
+        "value": "isuzu",
+        "icon": "isuzu.png"
+    },
+    {
+        "label": "Iveco",
+        "value": "iveco",
+        "icon": "iveco.png"
+    },
+    {
+        "label": "JAC",
+        "value": "jac",
+        "icon": "jac.png"
+    },
+    {
+        "label": "Jaguar",
+        "value": "jaguar",
+        "icon": "jaguar.png"
+    },
+    {
+        "label": "Jeep",
+        "value": "jeep",
+        "icon": "jeep.png"
+    },
+    {
+        "label": "Jetta",
+        "value": "jetta",
+        "icon": "jetta.png"
+    },
+    {
+        "label": "JMC",
+        "value": "jmc",
+        "icon": "jmc.png"
+    },
+    {
+        "label": "Kia",
+        "value": "kia",
+        "icon": "kia.png"
+    },
+    {
+        "label": "Lada",
+        "value": "lada",
+        "icon": "lada.png"
+    },
+    {
+        "label": "Lamborghini",
+        "value": "lamborghini",
+        "icon": "lamborghini.png"
+    },
+    {
+        "label": "Lancia",
+        "value": "lancia",
+        "icon": "lancia.png"
+    },
+    {
+        "label": "Land Rover",
+        "value": "land-rover",
+        "icon": "land-rover.png"
+    },
+    {
+        "label": "Lexus",
+        "value": "lexus",
+        "icon": "lexus.png"
+    },
+    {
+        "label": "Ligier",
+        "value": "ligier",
+        "icon": "ligier.png"
+    },
+    {
+        "label": "Lincoln",
+        "value": "Lincoln",
+        "icon": "Lincoln.png"
+    },
+    {
+        "label": "Mclaren",
+        "value": "mclaren",
+        "icon": "mclaren.png"
+    },
+    {
+        "label": "Masserati",
+        "value": "masserati",
+        "icon": "masserati.png"
+    },
+    {
+        "label": "Mazda",
+        "value": "Mazda",
+        "icon": "Mazda.png"
+    },
+    {
+        "label": "Mercedes",
+        "value": "mercedes",
+        "icon": "mercedes.png"
+    },
+    {
+        "label": "Mercury",
+        "value": "mercury",
+        "icon": "mercury.png"
+    },
+    {
+        "label": "Mini",
+        "value": "mini",
+        "icon": "mini.png"
+    },
+    {
+        "label": "Mitshubishi",
+        "value": "mitshubishi",
+        "icon": "mitshubishi.png"
+    },
+    {
+        "label": "Nissan",
+        "value": "nissan",
+        "icon": "nissan.png"
+    },
+    {
+        "label": "Oldsmobile",
+        "value": "oldsmobile",
+        "icon": "oldsmobile.png"
+    },
+    {
+        "label": "Omoda",
+        "value": "omoda",
+        "icon": "omoda.png"
+    },
+    {
+        "label": "Opel",
+        "value": "opel",
+        "icon": "opel.png"
+    },
+    {
+        "label": "Peugeot",
+        "value": "peugeot",
+        "icon": "peugeot.png"
+    },
+    {
+        "label": "Pontiac",
+        "value": "pontiac",
+        "icon": "pontiac.png"
+    },
+    {
+        "label": "Porsche",
+        "value": "porsche",
+        "icon": "porsche.png"
+    },
+    {
+        "label": "Renault",
+        "value": "renault",
+        "icon": "renault.png"
+    },
+    {
+        "label": "Rolls-Roys",
+        "value": "rolls-roys",
+        "icon": "rolls-roys.png"
+    },
+    {
+        "label": "Rover",
+        "value": "rover",
+        "icon": "rover.png"
+    },
+    {
+        "label": "SEAT",
+        "value": "seat",
+        "icon": "seat.png"
+    },
+    {
+        "label": "Simca",
+        "value": "simca",
+        "icon": "simca.png"
+    },
+    {
+        "label": "Skoda",
+        "value": "skoda",
+        "icon": "skoda.png"
+    },
+    {
+        "label": "Subaru",
+        "value": "subaru",
+        "icon": "subaru.png"
+    },
+    {
+        "label": "Suzuku",
+        "value": "suzuku",
+        "icon": "suzuku.png"
+    },
+    {
+        "label": "Tata",
+        "value": "tata",
+        "icon": "tata.png"
+    },
+    {
+        "label": "Tesla",
+        "value": "tesla",
+        "icon": "tesla.png"
+    },
+    {
+        "label": "Toyota",
+        "value": "toyota",
+        "icon": "toyota.png"
+    },
+    {
+        "label": "Volswagen",
+        "value": "volswagen",
+        "icon": "volswagen.png"
+    },
+    {
+        "label": "Volvo",
+        "value": "volvo",
+        "icon": "volvo.png"
+    }
+]

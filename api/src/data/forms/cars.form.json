@@ -1,0 +1,190 @@
+{
+    "slug": "cars",
+    "fields": [
+        {
+            "type": "text",
+            "label": "Titre",
+            "name": "title",
+            "placeholder": "Ex: Toyota Corolla 2022 en bon état",
+            "required": true,
+            "validation": {
+                "minLength": 10,
+                "maxLength": 120
+            }
+        },
+        {
+            "name": "vehicleType",
+            "label": "Type de véhicule",
+            "type": "select",
+            "options": [
+                "Citadine",
+                "Berline",
+                "SUV",
+                "4x4",
+                "Coupé",
+                "Cabriolet",
+                "Break",
+                "Monospace",
+                "Utilitaire",
+                "Autre"
+            ],
+            "required": true
+        },
+        {
+            "type": "select",
+            "label": "Marque",
+            "name": "brand",
+            "placeholder": "Ex: Toyota, BMW, Mercedes...",
+            "options": [],
+            "required": true
+        },
+        {
+            "type": "number",
+            "label": "Année",
+            "name": "year",
+            "placeholder": "Ex: 2022",
+            "validation": {
+                "min": 1980,
+                "max": 2025
+            },
+            "required": true
+        },
+        {
+            "type": "text",
+            "label": "Modèle",
+            "name": "model",
+            "placeholder": "Ex: Corolla, X5, Classe C...",
+            "required": true
+        },
+        {
+            "type": "number",
+            "label": "Kilométrage (km)",
+            "name": "mileage",
+            "placeholder": "Ex: 120000",
+            "required": true
+        },
+        {
+            "type": "select",
+            "label": "Carburant",
+            "name": "fuel",
+            "required": true,
+            "options": [
+                "Essence",
+                "Diesel",
+                "Hybride",
+                "Électrique",
+                "GPL"
+            ]
+        },
+        {
+            "type": "select",
+            "label": "Boîte",
+            "name": "gearbox",
+            "required": true,
+            "options": [
+                "Manuelle",
+                "Automatique",
+                "Semi-automatique"
+            ]
+        },
+        {
+            "name": "doors",
+            "label": "Nombre de portes",
+            "type": "select",
+            "options": [
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "required": true
+        },
+        {
+            "name": "seats",
+            "label": "Nombre de sièges",
+            "type": "select",
+            "options": [
+                "2",
+                "5",
+                "7",
+                "9"
+            ],
+            "required": true
+        },
+        {
+            "name": "color",
+            "type": "text",
+            "label": "Couleur",
+            "required": false,
+            "placeholder": "Ex: Noir, Rouge..."
+        },
+        {
+            "name": "features",
+            "label": "Équipements",
+            "type": "checkbox",
+            "options": [
+                "Climatisation",
+                "Toit ouvrant",
+                "Caméra de recul",
+                "GPS",
+                "Sièges en cuir",
+                "Radar de recul",
+                "Bluetooth",
+                "Régulateur de vitesse",
+                "Écran tactile",
+                "Start & Stop"
+            ],
+            "required": false
+        },
+        {
+            "name": "documents",
+            "label": "Documents disponibles",
+            "type": "checkbox",
+            "options": [
+                "Carte grise",
+                "Assurance",
+                "Contrôle technique",
+                "Facture d'achat"
+            ],
+            "required": false
+        },
+        {
+            "name": "condition",
+            "label": "État",
+            "type": "radio",
+            "required": true,
+            "options": [
+                "Neuf",
+                "Occasion (2ème main)"
+            ]
+        },
+        {
+            "name": "priceType",
+            "label": "Type de prix",
+            "placeholder": "Prix négociable",
+            "type": "select",
+            "options": [
+                "Prix fixe",
+                "Prix négociable",
+                "Prix à partir de"
+            ],
+            "required": true
+        },
+        {
+            "type": "number",
+            "label": "Prix",
+            "name": "price",
+            "required": true,
+            "validation": {
+                "min": 100
+            }
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "type": "textarea",
+            "placeholder": "Détails supplémentaires sur l'état et l'utilisation",
+            "required": true
+        }
+    ]
+}

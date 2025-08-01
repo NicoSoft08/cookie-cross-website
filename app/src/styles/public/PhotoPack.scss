@@ -1,0 +1,282 @@
+@import '../fonts';
+@import '../variables';
+
+.photo-packs {
+    padding: 60px 20px;
+    background: linear-gradient(to bottom right, #f8fafc, #eef2ff);
+
+    .packs-header {
+        text-align: center;
+        margin-bottom: 40px;
+        font-family: 'Ubuntu', sans-serif;
+
+        .icon-wrapper {
+            background: white;
+            border-radius: 50%;
+            padding: 16px;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+            .icon {
+                width: 48px;
+                height: 48px;
+                color: #6366f1;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: #6b7280;
+            font-weight: $font-light;
+        }
+    }
+
+    .packs-list {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .pack-card {
+        font-family: 'Ubuntu', sans-serif;
+        background: $white;
+        border: 2px solid #e5e7eb;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+
+        &.popular {
+            box-shadow: 0 8px 30px rgba(147, 51, 234, 0.2);
+            transform: scale(1.02);
+        }
+
+        &.blue {
+            border-color: #bfdbfe;
+
+            .pack-header {
+                background: #eff6ff;
+            }
+
+            .icon-circle {
+                background: #dbeafe;
+                color: #3b82f6;
+            }
+
+            .price {
+                color: #3b82f6;
+            }
+
+            .btn-select {
+                background: #3b82f6;
+                color: white;
+            }
+        }
+
+        &.purple {
+            border-color: #c4b5fd;
+
+            .pack-header {
+                background: #f5f3ff;
+            }
+
+            .icon-circle {
+                background: #ddd6fe;
+                color: #8b5cf6;
+            }
+
+            .price {
+                color: #8b5cf6;
+            }
+
+            .btn-select {
+                background: #8b5cf6;
+                color: white;
+            }
+        }
+
+        &.gold {
+            border-color: #fcd34d;
+
+            .pack-header {
+                background: #fefce8;
+            }
+
+            .icon-circle {
+                background: #fef9c3;
+                color: #f59e0b;
+            }
+
+            .price {
+                color: #f59e0b;
+            }
+
+            .btn-select {
+                background: #f59e0b;
+                color: white;
+            }
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, $two, $three);
+            color: white;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .pack-header {
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            .icon-circle {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+
+            .description {
+                font-size: 0.95rem;
+                color: #6b7280;
+            }
+
+            .price {
+                font-size: 1.75rem;
+                font-weight: bold;
+            }
+        }
+
+        .pack-details {
+            padding: 20px;
+
+            .stats {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                div {
+                    text-align: center;
+
+                    strong {
+                        display: block;
+                        font-size: 1.25rem;
+                        margin-bottom: 4px;
+                    }
+
+                    span {
+                        font-size: 0.875rem;
+                        color: #6b7280;
+                    }
+                }
+            }
+
+            .features {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 20px;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 8px;
+                    font-size: 0.95rem;
+                    color: #374151;
+
+                    svg {
+                        color: #10b981;
+                    }
+                }
+            }
+
+            .btn-select {
+                width: 100%;
+                padding: 12px;
+                font-weight: 600;
+                font-size: 1rem;
+                border: none;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: transform 0.2s;
+
+                &:hover {
+                    transform: scale(1.03);
+                }
+            }
+        }
+    }
+
+    .how-it-works {
+        margin-top: 60px;
+        text-align: center;
+        font-family: 'Ubuntu', sans-serif;
+
+        h3 {
+            font-size: 1.75rem;
+            margin-bottom: 30px;
+            color: #111827;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            text-align: left;
+
+            .step {
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+
+                .step-number {
+                    width: 28px;
+                    height: 28px;
+                    background: #6366f1;
+                    color: white;
+                    font-weight: bold;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.875rem;
+                }
+
+                p {
+                    font-size: 0.85rem;
+                    color: #6b7280;
+                }
+
+                strong {
+                    display: block;
+                    color: #111827;
+                    margin-bottom: 4px;
+                }
+            }
+        }
+    }
+}

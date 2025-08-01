@@ -1,0 +1,84 @@
+@import './variables';
+@import './fonts';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+.notification-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    animation: slideIn 0.3s ease-out;
+
+    p {
+        margin: 0 0 12px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+
+        button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Ubuntu', sans-serif;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+        }
+
+        .accept {
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+
+        }
+
+        .reject {
+            background: $gray-300;
+            color: $gray-500;
+
+            &:hover {
+                background: $gray-300;
+                transform: none;
+
+                &::before {
+                    left: -100%;
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

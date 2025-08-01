@@ -1,0 +1,156 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.store-public {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 12rem;
+
+    @media (max-width: $tablet) {
+        flex-direction: column;
+    }
+
+    .header-container {
+        img {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            border: 1px solid $gray-200;
+            border-radius: 8px;
+        }
+
+        .__footer {
+            display: flex;
+            align-items: last baseline;
+            justify-content: space-between;
+
+            @media (max-width: $tablet) {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .store-meta {
+                flex: 1;
+                margin: 0 1rem;
+                text-align: center;
+
+                @media (max-width: $tablet) {
+                    margin-top: 1rem;
+                }
+
+                h1 {
+                    margin: 0;
+                    font-size: 1.5rem;
+                }
+
+                p {
+                    font-size: 13px;
+                    font-weight: $font-regular;
+                    color: $gray-500;
+                }
+            }
+
+            .store-actions {
+                display: flex;
+                gap: 0.5rem;
+
+                .btn {
+                    padding: 0.6rem;
+                    border: none;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    cursor: pointer;
+                    font-family: 'Ubuntu', sans-serif;
+                }
+
+                .show-number {
+                    background: #e0e0e0;
+                }
+
+                .message {
+                    background: #00aaff;
+                    color: white;
+                }
+
+                .subscribe {
+                    background: #f0f0f0;
+                }
+            }
+        }
+    }
+
+    .store-listings {
+        margin-top: 1rem;
+
+        .store-tabs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            button {
+                width: 90%;
+                font-family: 'Ubuntu', sans-serif;
+                border: none;
+                background: none;
+                font-weight: bold;
+                font-size: 1rem;
+                color: #555;
+                padding: 0.5rem 0;
+                cursor: pointer;
+                position: relative;
+                @include transition(all, 0.2s);
+
+                &.active {
+                    color: #00aaff;
+                    border-bottom: 2px solid #00aaff;
+                }
+            }
+        }
+    }
+}

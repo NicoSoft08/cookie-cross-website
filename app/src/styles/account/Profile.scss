@@ -1,0 +1,176 @@
+@import '../fonts';
+@import '../variables';
+
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.account-profile {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .profile-completion {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background: #fafafa;
+
+        .label {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress {
+            height: 100%;
+            transition: width 0.4s ease;
+
+            &.low {
+                background-color: #e74c3c;
+            }
+
+            &.medium {
+                background-color: #f1c40f;
+            }
+
+            &.high {
+                background-color: #2ecc71;
+            }
+        }
+
+        .incomplete-tasks {
+            .hint {
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+                color: #444;
+            }
+
+            ul {
+                list-style: none;
+                padding-left: 1rem;
+                font-size: 0.9rem;
+                color: #666;
+
+                li {
+                    margin-bottom: 0.2rem;
+                }
+            }
+        }
+    }
+
+    .account-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .account-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #fff;
+
+            &:hover {
+                background-color: #f9fafb;
+                cursor: pointer;
+            }
+
+            .account-info {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                font-family: 'Ubuntu', sans-serif;
+
+                .account-title {
+                    font-size: 13px;
+                    font-weight: $font-regular;
+                    color: $gray-500;
+                    margin: 0;
+                }
+
+                .account-description {
+                    font-size: 15px;
+                    color: #6b7280;
+                    font-weight: $font-light;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .privacy-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: $gray-200;
+        padding: 10px;
+
+        .privacy-indicator-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            .privacy-indicator-icon {
+                color: $two;
+            }
+
+            .privacy-indicator-label {
+                font-size: 13px;
+                margin-top: 5px;
+                font-weight: $font-light;
+            }
+        }
+    }
+}

@@ -1,0 +1,150 @@
+@import '../fonts';
+@import '../variables';
+
+.create-ad-page {
+    .container {
+        .no-plan-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            min-height: 400px;
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                padding: 24px 16px;
+                min-height: 300px;
+            }
+
+            @media (max-width: 480px) {
+                padding: 20px 12px;
+            }
+
+            .alert-message {
+                background: linear-gradient(135deg, #fef3cd 0%, #fff3cd 100%);
+                border: 2px solid #ffc107;
+                border-radius: 16px;
+                padding: 32px 24px;
+                margin-bottom: 24px;
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+                transition: all 0.3s ease;
+
+                @media (max-width: 768px) {
+                    padding: 24px 20px;
+                    margin-bottom: 20px;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background: linear-gradient(90deg, #ffc107, #ffb300, #ff8f00);
+                    animation: shimmer 2s infinite;
+
+                    @keyframes shimmer {
+                        0% {
+                            transform: translateX(-100%);
+                        }
+
+                        100% {
+                            transform: translateX(100%);
+                        }
+                    }
+                }
+
+                /* Icône d'alerte */
+                .alert-icon {
+                    font-size: 48px;
+                    color: #ff8f00;
+                    margin-bottom: 16px;
+                    animation: pulse 2s infinite;
+                    filter: drop-shadow(0 2px 4px rgba(255, 143, 0, 0.3));
+
+                    @media (max-width: 768px) {
+                        font-size: 40px;
+                        margin-bottom: 12px;
+                    }
+                }
+
+                h2 {
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #b45309;
+                    margin: 0 0 12px 0;
+                    line-height: 1.3;
+
+                    @media (max-width: 768px) {
+                        font-size: 20px;
+                        margin-bottom: 8px;
+                    }
+                }
+
+                p {
+                    font-size: 16px;
+                    color: #92400e;
+                    margin: 0;
+                    line-height: 1.5;
+                    font-weight: 500;
+
+                    @media (max-width: 768px) {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            /* Bouton d'abonnement */
+            .subscribe-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                color: white;
+                border: none;
+                border-radius: 12px;
+                padding: 16px 32px;
+                font-size: 16px;
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+                position: relative;
+                overflow: hidden;
+                text-decoration: none;
+                min-width: 200px;
+                justify-content: center;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.5s ease;
+                }
+
+                &:hover::before {
+                    left: 100%;
+                }
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+                    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+                }
+            }
+        }
+    }
+}

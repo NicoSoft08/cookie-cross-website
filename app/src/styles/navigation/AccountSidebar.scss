@@ -1,0 +1,129 @@
+@import '../fonts';
+@import '../variables';
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: $two; // Couleur de fond
+    color: $white;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+    z-index: 1000;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .sidebar-content {
+        padding: 20px;
+
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .logo {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .close-button {
+                background: none;
+                border: none;
+                color: $white;
+                cursor: pointer;
+            }
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 20px;
+
+            a {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                color: $white;
+                text-decoration: none;
+                border-radius: 5px;
+
+                .external-link {
+                    margin-left: auto;
+                }
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                &.active {
+                    background-color: rgba(255, 255, 255, 0.2);
+
+                    .nav-label {
+                        font-size: 13px;
+                        font-weight: $font-regular;
+                    }
+                }
+
+                .nav-icon {
+                    margin-right: 10px;
+                }
+
+                .nav-label {
+                    font-size: 13px;
+                    font-weight: $font-light;
+                }
+            }
+        }
+
+        .user-info {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            align-items: center;
+
+            .user-details {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .user-text {
+                    text-align: center;
+
+                    .user-name {
+                        margin: 0;
+
+                        font-weight: $font-regular;
+                    }
+
+                    .user-email {
+                        margin: 0;
+                        font-size: 0.9rem;
+                        color: #ccc;
+                        font-weight: $font-light;
+
+                        width: 150px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

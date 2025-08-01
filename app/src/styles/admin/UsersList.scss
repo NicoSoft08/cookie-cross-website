@@ -1,0 +1,245 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.users-card {
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px #e5e7eb;
+
+    .users-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .list-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 15px;
+            border-bottom: 1px solid $gray-200;
+
+            .list-select,
+            .list-input,
+            option {
+                font-family: 'Ubuntu', sans-serif;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                font-size: 0.875rem;
+                font-weight: $font-light;
+                background-color: #f9fafb;
+            }
+
+            .list-search {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+
+        .list-table-container {
+            width: 100%;
+            overflow-x: auto;
+
+            // Masquer scrollbar sur certains navigateurs (optionnel)
+            -webkit-overflow-scrolling: touch;
+
+            // Optionnel : scroll doux
+            scroll-behavior: smooth;
+
+            // Style facultatif de scrollbar personnalisée (light)
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db transparent;
+
+            &::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #cbd5e0;
+                border-radius: 4px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+        }
+
+        .list-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+
+            th,
+            td {
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid #e5e7eb;
+                text-align: left;
+                font-weight: $font-light;
+                font-size: 0.875rem;
+            }
+
+            thead th {
+                background-color: #f3f4f6;
+                font-weight: $font-regular;
+                color: #374151;
+            }
+
+            tbody tr:hover {
+                background-color: #f9fafb;
+            }
+
+            .users-name {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .users-status {
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                font-weight: 500;
+                font-size: 0.75rem;
+
+                &.active {
+                    background-color: #d1fae5;
+                    color: #065f46;
+                }
+
+                &.inactive {
+                    background-color: #fee2e2;
+                    color: #991b1b;
+                }
+            }
+
+            .users-actions {
+                display: flex;
+                gap: 0.5rem;
+                color: #6b7280;
+                cursor: pointer;
+                position: relative;
+
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    border: none;
+                    width: 35px;
+                    height: 35px;
+                    cursor: pointer;
+
+                    &:first-child {
+                        background-color: lighten(#2563eb, 30%);
+                        color: #2563eb;
+                    }
+
+                    &:nth-child(2) {
+                        background-color: #d1fae5;
+                        color: #065f46;
+                    }
+
+                    &:last-child {
+                        background-color: #fee2e2;
+                        color: #991b1b;
+                    }
+                }
+
+                svg:hover {
+                    color: #111827;
+                }
+            }
+
+            .users-list__no-result {
+                text-align: center;
+                padding: 2rem 0;
+                color: #6b7280;
+            }
+        }
+
+
+        .list-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            font-size: 0.875rem;
+            color: #4b5563;
+
+            .list-pagination {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+
+                .users-list-btn {
+                    padding: 0.375rem 0.75rem;
+                    border-radius: 4px;
+                    border: 1px solid #d1d5db;
+                    background-color: #f3f4f6;
+                    font-size: 0.875rem;
+                    cursor: pointer;
+
+                    &.active {
+                        background-color: #2563eb;
+                        color: white;
+                        border-color: #2563eb;
+                    }
+
+                    &:disabled {
+                        background-color: #e5e7eb;
+                        color: #9ca3af;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+@mixin glass-effect {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@mixin hover-lift {
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+// Container principal
+.create-post-flow {
+    min-height: 100vh;
+    // background: linear-gradient(135deg, $two 0%, $three 100%);
+    position: relative;
+    overflow-x: hidden;
+
+    // Effet de particules en arrière-plan
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    // Container du contenu
+    .flow-container {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    // Indicateur d'étapes
+    .step-indicator {
+        text-align: center;
+        margin: 20px 0;
+
+        .step-count {
+            color: $dark;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-regular;
+        }
+
+        .step-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: $font-regular;
+            margin: 0;
+        }
+    }
+}

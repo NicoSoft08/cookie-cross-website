@@ -1,0 +1,74 @@
+@import '../fonts';
+@import '../variables';
+
+.help-header {
+    background-color: $two;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+
+    .logo-section {
+        display: flex;
+        align-items: center;
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: $white;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                margin-right: 10px;
+            }
+
+            .title {
+                color: $white;
+                font-size: 1.5rem;
+                font-weight: $font-regular;
+                margin-left: 15px;
+
+                @media (max-width: 576px) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .notification-section {
+        .notification-button {
+            position: relative;
+
+            button {
+                background: none;
+                border: none;
+                color: $white;
+                cursor: pointer;
+            }
+
+            .notification-count {
+                position: absolute;
+                top: -5px;
+                right: 1px;
+                background-color: $danger;
+                color: $white;
+                border-radius: 50%;
+                padding: 2px 5px;
+                font-size: 12px;
+                font-weight: $font-light;
+            }
+        }
+    }
+}

@@ -1,0 +1,2123 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.select-cat {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+
+    .sensitive-warning {
+        background-color: #fff3cd; // Jaune clair pour un avertissement doux
+        color: #856404; // Marron foncé pour un bon contraste
+        border: 1px solid #ffeeba;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        p {
+            margin: 5px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        strong {
+            font-size: 16px;
+            color: #654321; // Brun légèrement plus foncé pour accentuer
+        }
+
+        button {
+            width: 100%;
+            padding: $spacing-lg $spacing-xl;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 1rem;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+
+    select {
+        margin: 10px 0;
+        appearance: none;
+    }
+
+    .input-field,
+    option {
+        width: 100%;
+        padding: $spacing-lg $spacing-lg $spacing-lg 3rem;
+        border: 2px solid $gray-200;
+        border-radius: $radius-lg;
+        font-size: 1rem;
+        font-weight: $font-light;
+        font-family: 'Ubuntu', sans-serif;
+        background: $white;
+        color: $gray-900;
+        @include transition(all, 0.2s);
+        position: relative;
+    }
+
+    .input-field.error {
+        border: 1px solid $danger;
+        background-color: #ffcccb;
+    }
+
+    span.error {
+        color: $danger;
+        font-size: 13px;
+        font-weight: $font-light;
+    }
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+
+
+    .verification-box {
+        background: $white;
+        max-height: 80vh;
+        overflow-y: auto;
+        // overflow: hidden;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+
+        .verification-success {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            .success-icon {
+                color: #28a745;
+                animation: pop 0.3s ease-in-out;
+            }
+
+            h3 {
+                font-size: 22px;
+                margin: 0;
+                text-align: center;
+            }
+
+            p {
+                font-size: 16px;
+                text-align: center;
+                color: #555;
+            }
+        }
+
+        .verification-instructions {
+            animation: fadeIn 0.5s ease-out;
+            // text-align: center;
+            margin-bottom: 32px;
+
+
+            p {
+                font-size: 15px;
+                font-weight: 600;
+                color: #1a202c;
+                margin: 0 0 16px 0;
+            }
+
+            ol {
+                margin: 0;
+                padding-left: 20px;
+                color: #4a5568;
+                line-height: 1.6;
+
+                li {
+                    margin-bottom: 8px;
+                    font-size: 15px;
+                }
+            }
+
+            .security-note {
+                font-size: 13px;
+                background: #f8d7da;
+                color: #721c24;
+                padding: 10px;
+                border-radius: 5px;
+            }
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+
+            button {
+                flex: 1;
+                padding: 0.7rem;
+                border: none;
+                background-color: transparent;
+                border-bottom: 2px solid #f0f0f0;
+                cursor: pointer;
+                font-weight: 500;
+                font-family: 'Ubuntu', sans-serif;
+                font-size: 15px;
+                font-weight: $font-light;
+
+                &.active {
+                    // background-color: $two;
+                    color: $two;
+                    border-bottom: 2px solid $two;
+                }
+
+                &:not(:last-child) {
+                    border: none;
+                }
+            }
+        }
+
+        .tab-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+
+            .upload-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 120px;
+                border: 2px dashed #ced4da;
+                border-radius: 8px;
+                background-color: #f8f9fa;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                margin-bottom: 1rem;
+
+                &:hover {
+                    border-color: #6c757d;
+                    background-color: #e9ecef;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    color: #495057;
+                    font-weight: 500;
+
+                    &::before {
+                        content: '';
+                        display: inline-block;
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 8px;
+                        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%236c757d' d='M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm65.18 216.01H224v80c0 8.84-7.16 16-16 16h-32c-8.84 0-16-7.16-16-16v-80H94.82c-14.28 0-21.41-17.29-11.27-27.36l96.42-95.7c6.65-6.61 17.39-6.61 24.04 0l96.42 95.7c10.15 10.07 3.03 27.36-11.25 27.36zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z'%3E%3C/path%3E%3C/svg%3E");
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                }
+            }
+
+            .preview {
+                margin: 1rem 0;
+                border-radius: 8px;
+                overflow-y: auto;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                background-color: #f8f9fa;
+
+                &::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 4px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #c1c1c1;
+                    border-radius: 4px;
+                }
+
+                &::-webkit-scrollbar-thumb:hover {
+                    background: #a8a8a8;
+                }
+
+                .pdf-preview,
+                .image-preview {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    embed {
+                        border: none;
+                        border-radius: 4px 4px 0 0;
+                        background-color: #fff;
+                    }
+
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        border-radius: 4px 4px 0 0;
+                        object-fit: contain;
+                        background-color: #fff;
+                    }
+
+                    .file-info {
+                        padding: 0.75rem;
+                        margin: 0;
+                        font-size: 0.875rem;
+                        color: #495057;
+                        font-weight: $font-light;
+                        background-color: #e9ecef;
+                        border-top: 1px solid #dee2e6;
+                        border-radius: 0 0 4px 4px;
+                        display: flex;
+                        align-items: center;
+
+                        &::before {
+                            content: '';
+                            display: inline-block;
+                            width: 16px;
+                            height: 16px;
+                            margin-right: 8px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                        }
+                    }
+                }
+
+                .pdf-preview .file-info::before {
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23e74c3c' d='M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-16.8 15.8-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z'%3E%3C/path%3E%3C/svg%3E");
+                }
+
+                .image-preview .file-info::before {
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%232ecc71' d='M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z'%3E%3C/path%3E%3C/svg%3E");
+                }
+            }
+        }
+
+        .verify-action {
+            margin-top: 1.5rem;
+            text-align: center;
+
+            button {
+                width: 100%;
+                padding: $spacing-lg $spacing-xl;
+                background: linear-gradient(135deg, $primary-color, $primary-hover);
+                color: $white;
+                border: none;
+                border-radius: $radius-lg;
+                font-size: 1rem;
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 600;
+                cursor: pointer;
+                @include transition(all, 0.2s);
+                @include card-shadow(2);
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: $spacing-sm;
+
+                // Effet de brillance
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                    @include transition(left, 0.5s);
+                }
+
+                &:hover {
+                    background: linear-gradient(135deg, $primary-hover, $primary-active);
+                    transform: translateY(-1px);
+                    @include card-shadow(3);
+
+                    &::before {
+                        left: 100%;
+                    }
+                }
+
+                &:active {
+                    transform: translateY(0);
+                    @include card-shadow(1);
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+                }
+
+                // État désactivé
+                &.disabled,
+                &:disabled {
+                    background: $gray-300;
+                    color: $gray-500;
+                    cursor: not-allowed;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &:hover {
+                        background: $gray-300;
+                        transform: none;
+                        @include card-shadow(1);
+
+                        &::before {
+                            left: -100%;
+                        }
+                    }
+                }
+
+                @media (max-width: $mobile) {
+                    padding: $spacing-md $spacing-lg;
+                    font-size: 0.9375rem;
+                }
+            }
+        }
+    }
+
+
+    .contact-support {
+        p {
+            text-align: center;
+            font-size: 13px;
+            color: $dark;
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.details {
+    max-width: 600px;
+    margin: auto;
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: 1rem;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+
+        .prev {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            // background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $gray-700;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $gray-500, $gray-300);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+}
+
+// IMAGE UPLOAD
+.image-upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+
+    .upload-instructions {
+        font-weight: 500;
+        font-size: 1rem;
+        color: #444;
+        text-align: center;
+    }
+
+    .upload-area {
+        border: 2px dashed #ccc;
+        padding: 2rem;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            border-color: #666;
+        }
+
+        &.uploading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .upload-icon {
+            color: #777;
+            width: 32px;
+            height: 32px;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-text {
+            font-size: 0.95rem;
+            color: #666;
+        }
+    }
+
+    .image-upload-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+
+        .image-container {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+
+            .uploaded-image {
+                width: 100%;
+                height: 100px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .remove-icon {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background: #fff;
+                border-radius: 50%;
+                padding: 3px;
+                cursor: pointer;
+                color: #d00;
+                width: 18px;
+                height: 18px;
+                transition: transform 0.2s ease;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: 1rem;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+
+        .prev {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            // background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $gray-700;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $gray-500, $gray-300);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+}
+
+.location-form {
+    max-width: 600px;
+    width: 100%;
+    margin: 1.5rem auto;
+
+    // Wrapper de checkbox personnalisée
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+        @include transition(all);
+
+        &:hover {
+            .checkbox-custom {
+                border-color: $two;
+                background: rgba($two, 0.05);
+            }
+        }
+
+        // Version pour les conditions d'utilisation
+        &--terms {
+            align-items: flex-start;
+            gap: $spacing-md;
+            cursor: default;
+
+            .checkbox-custom {
+                margin-top: 2px;
+                flex-shrink: 0;
+            }
+
+            .checkbox-label {
+                cursor: pointer;
+                line-height: 1.5;
+            }
+        }
+
+        // Input checkbox caché
+        .checkbox-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+
+            &:checked+.checkbox-custom {
+                background: $two;
+                border-color: $two;
+
+                &::after {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            &:focus+.checkbox-custom {
+                box-shadow: 0 0 0 3px rgba($two, 0.1);
+            }
+        }
+
+        // Checkbox personnalisée
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid $gray-300;
+            border-radius: $radius-sm;
+            background: $white;
+            @include flex-center;
+            @include transition(all);
+            position: relative;
+            flex-shrink: 0;
+
+            &::after {
+                content: '✓';
+                color: $white;
+                font-size: 0.75rem;
+                font-weight: 700;
+                opacity: 0;
+                transform: scale(0.5);
+                @include transition(all, 0.2s);
+            }
+        }
+
+        // Label de checkbox
+        .checkbox-label {
+            font-size: 0.875rem;
+            color: $gray-700;
+            user-select: none;
+            @include transition(color);
+
+            .terms-link {
+                color: $two;
+                text-decoration: none;
+                font-weight: 600;
+                @include transition(color);
+
+                &:hover {
+                    text-decoration: underline;
+                    color: lighten($two, 10%);
+                }
+            }
+        }
+
+    }
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: 1rem;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+
+        .prev {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            // background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $gray-700;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $gray-500, $gray-300);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+}
+
+.audience {
+    max-width: 600px;
+    margin: auto;
+
+    .form-title {
+        font-size: 1.25rem;
+        color: $gray-900;
+        margin-bottom: 0.5rem;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .form-subtitle {
+        font-size: 1rem;
+        color: #666;
+        font-weight: $font-light;
+        margin-bottom: 1.5rem;
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .audience-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .audience-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.2s, background-color 0.2s;
+
+            &.disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+
+                .label,
+                .description {
+                    color: #888;
+                }
+
+                &:hover {
+                    background-color: inherit;
+                }
+            }
+
+            .icon {
+                margin-top: 4px;
+                color: #555;
+            }
+
+            .text {
+                .label {
+                    font-family: 'Ubuntu', sans-serif;
+                    font-weight: 600;
+                    margin-bottom: 0.2rem;
+                    color: #222;
+                }
+
+                .description {
+                    font-size: 0.9rem;
+                    color: #666;
+                    font-family: 'Ubuntu', sans-serif;
+                }
+            }
+
+            &.selected {
+                border-color: #0d6efd;
+                background-color: #f0f8ff;
+
+                .icon {
+                    color: #0d6efd;
+                }
+
+                .label {
+                    color: #0d6efd;
+                }
+            }
+        }
+    }
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: 1rem;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+
+        .prev {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            // background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $gray-700;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $gray-500, $gray-300);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+}
+
+.review-form {
+    max-width: 600px;
+    width: 100%;
+    margin: 1.5rem auto;
+
+    .review-section {
+        margin: 50px 0;
+
+        h3 {
+            font-size: 18px;
+            color: $gray-dark;
+        }
+
+        p {
+            font-weight: $font-light;
+        }
+
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+
+            .review-image-wrapper {
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                overflow: hidden;
+                background: #f9f9f9;
+
+                .review-image {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    // Wrapper reCAPTCHA
+    .captcha-container {
+        @include flex-center;
+        padding: $spacing-lg;
+        background: $gray-50;
+        border-radius: $radius-lg;
+        border: 1px solid $gray-200;
+
+        // Responsive pour reCAPTCHA
+        @media (max-width: $mobile) {
+            transform: scale(0.85);
+            transform-origin: center;
+            padding: $spacing-md;
+        }
+    }
+
+    .form-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: 1rem;
+
+        .next {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $white;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $primary-hover, $primary-active);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+
+        .prev {
+            // width: 100%;
+            padding: $spacing-md $spacing-md;
+            // background: linear-gradient(135deg, $primary-color, $primary-hover);
+            color: $gray-700;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 15px;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: $font-light;
+            cursor: pointer;
+            @include transition(all, 0.2s);
+            @include card-shadow(2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $spacing-sm;
+
+            // Effet de brillance
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                @include transition(left, 0.5s);
+            }
+
+            &:hover {
+                background: linear-gradient(135deg, $gray-500, $gray-300);
+                transform: translateY(-1px);
+                @include card-shadow(3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
+                @include card-shadow(1);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+            }
+
+            // État désactivé
+            &.disabled,
+            &:disabled {
+                background: $gray-300;
+                color: $gray-500;
+                cursor: not-allowed;
+                transform: none;
+                @include card-shadow(1);
+
+                &:hover {
+                    background: $gray-300;
+                    transform: none;
+                    @include card-shadow(1);
+
+                    &::before {
+                        left: -100%;
+                    }
+                }
+            }
+
+            @media (max-width: $mobile) {
+                padding: $spacing-md $spacing-lg;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+
+    .review-modal {
+        p {
+            font-weight: $font-light;
+        }
+
+        .review-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .form-navigation {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: $spacing-md;
+
+                .next {
+                    // width: 100%;
+                    padding: $spacing-md $spacing-md;
+                    background: linear-gradient(135deg, $primary-color, $primary-hover);
+                    color: $white;
+                    border: none;
+                    border-radius: $radius-lg;
+                    font-size: 1rem;
+                    font-family: 'Ubuntu', sans-serif;
+                    font-weight: 600;
+                    cursor: pointer;
+                    @include transition(all, 0.2s);
+                    @include card-shadow(2);
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: $spacing-sm;
+
+                    // Effet de brillance
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                        @include transition(left, 0.5s);
+                    }
+
+                    &:hover {
+                        background: linear-gradient(135deg, $primary-hover, $primary-active);
+                        transform: translateY(-1px);
+                        @include card-shadow(3);
+
+                        &::before {
+                            left: 100%;
+                        }
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                        @include card-shadow(1);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+                    }
+
+                    // État désactivé
+                    &.disabled,
+                    &:disabled {
+                        background: $gray-300;
+                        color: $gray-500;
+                        cursor: not-allowed;
+                        transform: none;
+                        @include card-shadow(1);
+
+                        &:hover {
+                            background: $gray-300;
+                            transform: none;
+                            @include card-shadow(1);
+
+                            &::before {
+                                left: -100%;
+                            }
+                        }
+                    }
+
+                    @media (max-width: $mobile) {
+                        padding: $spacing-md $spacing-lg;
+                        font-size: 0.9375rem;
+                    }
+                }
+
+                .prev {
+                    // width: 100%;
+                    padding: $spacing-md $spacing-md;
+                    // background: linear-gradient(135deg, $primary-color, $primary-hover);
+                    color: $gray-700;
+                    border: none;
+                    border-radius: $radius-lg;
+                    font-size: 1rem;
+                    font-family: 'Ubuntu', sans-serif;
+                    font-weight: 600;
+                    cursor: pointer;
+                    @include transition(all, 0.2s);
+                    @include card-shadow(2);
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: $spacing-sm;
+
+                    // Effet de brillance
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                        @include transition(left, 0.5s);
+                    }
+
+                    &:hover {
+                        background: linear-gradient(135deg, $gray-500, $gray-300);
+                        transform: translateY(-1px);
+                        @include card-shadow(3);
+
+                        &::before {
+                            left: 100%;
+                        }
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                        @include card-shadow(1);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+                    }
+
+                    // État désactivé
+                    &.disabled,
+                    &:disabled {
+                        background: $gray-300;
+                        color: $gray-500;
+                        cursor: not-allowed;
+                        transform: none;
+                        @include card-shadow(1);
+
+                        &:hover {
+                            background: $gray-300;
+                            transform: none;
+                            @include card-shadow(1);
+
+                            &::before {
+                                left: -100%;
+                            }
+                        }
+                    }
+
+                    @media (max-width: $mobile) {
+                        padding: $spacing-md $spacing-lg;
+                        font-size: 0.9375rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.post-create-success {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.6s ease;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .success-icon {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+
+        div {
+            animation: bounce 1s infinite ease-in-out alternate;
+
+            @keyframes bounce {
+                from {
+                    transform: translateY(0);
+                }
+
+                to {
+                    transform: translateY(-10px);
+                }
+            }
+
+            &:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            &:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            .icon {
+                font-size: 2.5rem;
+                color: #4caf50; // vert succès
+            }
+        }
+    }
+
+
+    h2 {
+        font-size: 1.75rem;
+        color: #222;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: #555;
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #4caf50;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s;
+
+        &:hover {
+            background-color: #43a047;
+        }
+    }
+}
+
+.limit-reached {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+
+    // Optionnel : animation d’entrée
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .header {
+        margin-bottom: 1rem;
+
+        .warning-icon {
+            color: #ff7043;
+            width: 48px;
+            height: 48px;
+            animation: shake 1s ease-in-out infinite;
+
+            @keyframes shake {
+                0% {
+                    transform: translateX(0);
+                }
+
+                10%,
+                30%,
+                50%,
+                70%,
+                90% {
+                    transform: translateX(-5px);
+                }
+
+                20%,
+                40%,
+                60%,
+                80% {
+                    transform: translateX(5px);
+                }
+
+                100% {
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
+
+    .body {
+        margin-bottom: 1.5rem;
+
+        h2 {
+            font-size: 1.8rem;
+            color: #e53935; // rouge alerte
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1rem;
+        }
+    }
+
+    .footer {
+        .upgrade-button {
+            background-color: #ff7043;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Ubuntu', sans-serif;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #f4511e;
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+    }
+}

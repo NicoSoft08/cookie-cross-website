@@ -1,0 +1,171 @@
+@import '../fonts';
+@import '../variables';
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    // width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    .content {
+        // margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Ubuntu', sans-serif;
+
+        .top-header {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $gray-dark;
+
+
+            .__left {
+                padding-inline-start: 15px;
+
+
+                a {
+                    font-size: 15px;
+                    color: $white;
+                    text-decoration: none;
+                }
+            }
+
+
+            .__right {
+                padding-inline-end: 15px;
+                gap: 15px;
+                display: flex;
+
+
+                a {
+                    font-size: 15px;
+                    color: $white;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .middle-header {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $two;
+
+            @media (max-width: 768px) {
+                justify-content: space-between;
+            }
+
+            .__left {
+
+                // Media queries
+                @media (max-width: 768px) {
+                    display: none;
+                }
+
+                @media (max-width: 480px) {
+                    display: none;
+                }
+            }
+
+
+            .__middle {
+                // width: 30rem;
+                width: 60%;
+
+                @media (max-width: 768px) {
+                    width: 80%;
+                }
+            }
+
+
+            .__right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                @media (max-width: 768px) {
+                    gap: 0;
+                }
+
+                .create-post-btn {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    border-radius: 12px;
+                    gap: 5px;
+                    color: $white;
+                    cursor: pointer;
+                    border: 1px solid $secondary-color;
+                    background-color: $secondary-color;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+                    @media (max-width: 768px) {
+                        display: none;
+                    }
+
+                    span {
+                        font-size: 13px;
+                        font-family: 'Ubuntu', sans-serif;
+                        margin-left: 5px;
+                    }
+                }
+
+
+                // Media queries
+                @media (max-width: 768px) {}
+
+                @media (max-width: 480px) {}
+            }
+        }
+
+        .bottom-header {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            scrollbar-width: thin;
+            justify-content: space-around;
+            background-color: $five;
+            padding: 5px;
+
+            .bottom-header-item {
+                font-family: 'Ubuntu', sans-serif;
+                font-size: 15px;
+                transition: $transition;
+                margin: 5px;
+
+
+                a {
+                    display: flex;
+                    padding: 5px;
+                    border-radius: 18px;
+                    align-items: center;
+                    text-decoration: none;
+                    background-color: $white;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        border: 1px solid $light;
+                        object-fit: cover;
+                    }
+
+
+                    span {
+                        color: $gray-dark;
+                        margin-left: 0.25rem;
+                        font-weight: $font-light;
+                    }
+                }
+            }
+        }
+    }
+}

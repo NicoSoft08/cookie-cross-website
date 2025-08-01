@@ -1,0 +1,46 @@
+@import '../fonts';
+@import '../variables';
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+// Progress bar intégrée
+.progress-container {
+    max-width: 600px;
+    position: relative;
+    height: 14px;
+    background: rgba(226, 232, 240, 0.5);
+    border-radius: 4px;
+    margin: 20px auto;
+    overflow: hidden;
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(135deg, $primary-color, $primary-hover);
+        border-radius: 4px;
+        @include transition(width, 0.5s, ease-out);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .progress-text {
+            color: $white;
+            font-size: 12px;
+            font-weight: $font-medium;
+            font-family: 'Ubuntu', sans-serif;
+        }
+    }
+}

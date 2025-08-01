@@ -1,0 +1,373 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.store-public {
+    font-family: 'Ubuntu', sans-serif;
+    color: #2c2c2c;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    .store-banner {
+        position: relative;
+        height: 200px;
+        background-color: #f5f5f5;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .store-avatar {
+            position: absolute;
+            bottom: -40px;
+            left: 2rem;
+
+            .store-avatar-image {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 3px solid #fff;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .store-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 2rem 1rem 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .store-header-info {
+            flex: 1;
+
+            .store-title {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                h1 {
+                    font-size: 1.6rem;
+                    font-weight: 600;
+                }
+
+                .store-verified {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    font-size: 0.9rem;
+                    color: #22c55e;
+
+                    svg {
+                        color: #22c55e;
+                    }
+                }
+            }
+
+            .store-meta {
+                margin-top: 0.3rem;
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                font-size: 0.95rem;
+                color: #666;
+
+                .store-created {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+            }
+
+            .store-status {
+                margin-top: 0.6rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 0.3rem 0.7rem;
+                border-radius: 30px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                border: 1px solid;
+
+                svg {
+                    animation: rotate 1s linear infinite;
+
+                    @keyframes rotate {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        .store-like-button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.2s;
+
+            &.liked {
+                color: #e11d48;
+
+                svg {
+                    fill: #e11d48;
+                }
+            }
+
+            &:hover {
+                color: #e11d48;
+            }
+        }
+    }
+
+    .store-description {
+        padding: 1rem 2rem;
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        p {
+            color: #444;
+            line-height: 1.6;
+            font-weight: $font-light;
+        }
+    }
+
+    .store-stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 1rem 2rem;
+        background-color: #f9fafb;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+        .stat-box {
+            text-align: center;
+
+            .stat-value {
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #111;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+                color: #666;
+            }
+        }
+    }
+
+    .store-badges {
+        padding: 1rem 2rem;
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .badge-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+
+            .badge-item {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 0.3rem 0.7rem;
+                border-radius: 20px;
+                border: 1px solid;
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .store-owner {
+        padding: 1rem 2rem;
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0.8rem;
+        }
+
+        .owner-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #f9f9f9;
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            border: 1px solid #eee;
+
+            .owner-avatar {
+                flex-shrink: 0;
+            }
+
+            .owner-info {
+                flex-grow: 1;
+
+                h4 {
+                    margin: 0;
+                    font-weight: 600;
+                    font-size: 1rem;
+                }
+
+                span {
+                    font-size: 0.85rem;
+                    color: #666;
+                }
+
+                svg {
+                    margin-right: 4px;
+                }
+            }
+
+            .owner-profile-button {
+                background: none;
+                border: none;
+                color: #2563eb;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                cursor: pointer;
+                transition: color 0.2s;
+
+                &:hover {
+                    color: #1d4ed8;
+                }
+            }
+        }
+    }
+
+    .store-cta {
+        padding: 1rem 2rem 2rem;
+        text-align: right;
+
+        button {
+            background-color: #111827;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            font-family: 'Ubuntu', sans-serif;
+            gap: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            svg {
+                margin-bottom: -1px;
+            }
+
+            &:hover {
+                background-color: #1f2937;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .store-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .store-stats {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .owner-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .store-cta {
+            text-align: center;
+        }
+    }
+}

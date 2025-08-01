@@ -1,0 +1,583 @@
+@import '../fonts';
+@import '../variables';
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease-in-out) {
+    transition: $properties $duration $timing;
+}
+
+@mixin card-shadow($level: 1) {
+    @if $level ==1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==2 {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @else if $level ==3 {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @else if $level ==4 {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin glass-effect {
+    background: rgba($white, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($white, 0.2);
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $two;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+}
+
+.listing-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15rem;
+
+    @media (max-width: 576px) {
+        padding: 0;
+        margin-top: 10rem;
+    }
+
+    @media (max-width: 480px) {
+        padding: 0;
+        margin-top: 13rem;
+    }
+
+    .image-slider {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+
+        @media (max-width: 576px) {
+            max-width: 400px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px; // 👈 fixe ou max-height + aspect-ratio selon besoin
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            position: relative;
+
+            @media (max-width: 768px) {
+                height: 300px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                display: block;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .nav-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.4);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                padding: 0.5rem;
+                cursor: pointer;
+                z-index: 2;
+
+                &.left {
+                    left: 10px;
+                }
+
+                &.right {
+                    right: 10px;
+                }
+            }
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+
+            img {
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+                border-radius: 6px;
+                cursor: pointer;
+                opacity: 0.6;
+                border: 2px solid transparent;
+                transition: all 0.2s;
+
+                &.active {
+                    border-color: #007bff;
+                    opacity: 1;
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: #ccc;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                &.active {
+                    background: #007bff;
+                }
+            }
+        }
+    }
+
+    .display {
+        max-width: 800px;
+        margin: auto;
+        padding: 15px 30px;
+
+        .under_score {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            @media (max-width: 576px) {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .title {
+                display: flex;
+                flex-direction: column;
+
+                @media (max-width: 576px) {
+                    margin: 10px 0;
+                }
+
+                span {
+                    color: $dark;
+                    font-size: 28px;
+                    letter-spacing: 1px;
+                    font-weight: $font-regular;
+                    color: $two;
+
+                    @media (max-width: 576px) {
+                        font-size: 18px;
+                        text-align: center;
+                    }
+                }
+
+                p {
+                    color: $gray-dark;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    font-weight: $font-light;
+                    font-size: 15px;
+
+                    @media (max-width: 480px) {
+                        font-size: 15px;
+                    }
+
+                    .icon {
+                        margin: 0 5px;
+                        color: $two;
+                    }
+                }
+            }
+
+            .seperator {
+                width: 1px;
+                height: 100%;
+                background: $dark;
+            }
+
+            .price {
+                text-align: center;
+
+                @media (max-width: 576px) {
+                    margin: 10px 0;
+                }
+
+                span {
+                    color: $gray-dark;
+                    margin: 0;
+                    font-weight: $font-light;
+                }
+
+                p {
+                    margin: 0;
+                    color: $two;
+                    font-size: 28px;
+                    letter-spacing: 1px;
+                    font-weight: $font-regular;
+                }
+            }
+        }
+
+        .sold-badge {
+            background-color: red;
+            color: $white;
+            padding: 5px 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: $font-regular;
+            font-family: 'Ubuntu', sans-serif;
+            text-transform: uppercase;
+            border-radius: 5px;
+        }
+
+        .content {
+            margin-top: 20px;
+
+            display: flex;
+            align-items: flex-start;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .detail-section {
+                padding: 10px;
+                width: 100%;
+                max-width: 600px;
+
+                @media (max-width: 768px) {
+                    width: 100%;
+                }
+
+                section {
+
+                    h2 {
+                        font-size: 20px;
+                        font-weight: $font-regular;
+                        border-left: 3px solid $two;
+                        padding-left: 10px;
+                        background: #f1f1f1;
+                        color: $dark;
+                    }
+
+                    p {
+                        font-size: 15px;
+                        font-weight: $font-light;
+                        color: $dark;
+                    }
+
+                    ul {
+                        list-style-type: none;
+                        padding: 0;
+                        margin: 0;
+                        font-size: 15px;
+
+                        li {
+                            margin-bottom: 5px;
+                            color: $dark;
+                            font-weight: $font-light;
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                    }
+                }
+            }
+
+            .owner-card {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 25px 20px;
+                display: flex;
+                flex-direction: column;
+                // width: 100%;
+                align-items: center;
+                text-align: center;
+
+                @media (max-width: 768px) {
+                    margin: auto;
+                }
+
+                // Image du propriétaire avec badge en ligne
+                .owner-image {
+                    position: relative;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+
+                // Nom du propriétaire
+                .name {
+                    margin: 0;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #333;
+                    cursor: pointer;
+                    margin-bottom: 8px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 200px;
+
+                    &:hover {
+                        text-decoration: underline;
+                        // color: $secondary-color;
+                    }
+
+                    @media (max-width: 768px) {
+                        font-size: 18px;
+                    }
+
+                    @media (max-width: 576px) {
+                        font-size: 16px;
+                    }
+                }
+
+                .like-count {
+                    font-size: 12px;
+                    color: $gray-500;
+                    font-family: 'Ubuntu', sans-serif;
+                    margin: 0;
+                }
+
+                .store-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                    margin-top: 1rem;
+
+                    .btn {
+                        padding: 0.6rem;
+                        border: none;
+                        border-radius: 6px;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        cursor: pointer;
+                        font-family: 'Ubuntu', sans-serif;
+                    }
+
+                    .show-number {
+                        background: #e0e0e0;
+                    }
+
+                    .message {
+                        background: linear-gradient(135deg, $primary-color, $primary-hover);
+                        color: $white;
+
+                        // Effet de brillance
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                            @include transition(left, 0.5s);
+                        }
+
+                        &:hover {
+                            background: linear-gradient(135deg, $primary-hover, $primary-active);
+                            transform: translateY(-1px);
+                            @include card-shadow(3);
+                        }
+                    }
+
+                    .subscribe {
+                        background: $gray-300;
+                        color: $gray-500;
+
+                        &:hover {
+                            background: $gray-300;
+                            transform: none;
+                            @include card-shadow(1);
+                        }
+                    }
+                }
+            }
+        }
+
+        .message-to-advertiser {
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-top: 25px;
+            position: relative;
+
+            // Style pour le label
+            label {
+                display: block;
+                font-size: 16px;
+                font-weight: 500;
+                margin-bottom: 15px;
+                color: #333;
+
+                @media (max-width: 768px) {
+                    font-size: 15px;
+                    margin-bottom: 12px;
+                }
+            }
+
+            // Style pour les messages prédéfinis
+            .predefined-messages {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 15px;
+
+                button {
+                    background-color: #f0f2f5;
+                    border: none;
+                    border-radius: 20px;
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    color: #333;
+                    font-family: 'Ubuntu', sans-serif;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background-color: #e4e6eb;
+                    }
+
+                    &:active {
+                        transform: scale(0.98);
+                    }
+
+                    @media (max-width: 576px) {
+                        font-size: 13px;
+                        padding: 6px 12px;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    margin-bottom: 12px;
+                }
+            }
+
+            .form-group {
+                max-width: 600px;
+                position: relative;
+
+                // Style pour la zone de texte
+                textarea {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-family: inherit;
+                    font-weight: $font-light;
+                    font-size: 15px;
+                    resize: vertical;
+                    min-height: 100px;
+                    margin-bottom: 15px;
+                    transition: border-color 0.3s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: $two;
+                        box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+                    }
+
+                    &::placeholder {
+                        color: #aaa;
+                    }
+
+                    @media (max-width: 768px) {
+                        padding: 10px 12px;
+                        font-size: 14px;
+                        min-height: 80px;
+                        margin-bottom: 12px;
+                        width: 90%;
+                    }
+                }
+
+                // Style pour le bouton d'envoi
+                button.send {
+                    bottom: 30px;
+                    right: 0;
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, $primary-color, $primary-hover);
+                    color: $white;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 12px 25px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    font-family: 'Ubuntu', sans-serif;
+                    transition: color 0.2s ease, transform 0.1s ease;
+
+                    @media (max-width: 768px) {
+                        right: 25px;
+                        padding: 10px 20px;
+                        font-size: 14px;
+                    }
+
+                    // Effet de brillance
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+                        @include transition(left, 0.5s);
+                    }
+
+                    svg {
+                        margin-right: 8px;
+                    }
+
+                    &:hover:not(:disabled) {
+                        background: linear-gradient(135deg, $primary-hover, $primary-active);
+                        transform: translateY(-1px);
+                        @include card-shadow(3);
+                    }
+
+                    &:active:not(:disabled) {
+                        transform: scale(0.98);
+                    }
+
+                    &:disabled {
+                        background: $gray-300;
+                        color: $gray-500;
+                        cursor: not-allowed;
+                        transform: none;
+                        @include card-shadow(1);
+                    }
+                }
+            }
+        }
+    }
+}

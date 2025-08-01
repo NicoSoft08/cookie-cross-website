@@ -1,0 +1,983 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  emailVerified Boolean  @default(false)
+  password  String
+  firstName String?
+  lastName  String?
+  displayName String?
+  phoneNumber     String?
+  phoneNumberVerified Boolean  @default(false)
+  gender    String?
+  genderVisibility GenderVisibility @default(PRIVATE)
+  avatar    String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(USER)
+
+  loginCount Int      @default(0)
+  lastOnline DateTime?
+  lastLoginAt  DateTime?
+  isOnline   Boolean @default(false)
+
+  country     String?
+  city        String?
+  address     String?
+  workAddress String?
+
+  // Nouvelles variables de profil et préférences
+  isProfilePublic   Boolean @default(true)
+  showPhoneNumber   Boolean @default(false)
+  preferredLanguage String  @default("fr")
+  
+  // Préférences de notifications
+  emailNotifications Boolean @default(true)
+  smsNotifications   Boolean @default(false)
+  pushNotifications  Boolean @default(false)
+
+  // Abonnement actuel
+  currentSubscriptionId String?
+  currentSubscription   Subscription? @relation("CurrentSubscription", fields: [currentSubscriptionId], references: [id])
+
+  // Relations
+  messages  Message[]
+  reviews   Review[]
+  comments  Comment[]
+  verificationCodes  VerificationCode[]
+  subscriptions      Subscription[]
+  payments           Payment[]
+  passwordResetTokens PasswordResetToken[]
+  moderationQueue   ModerationQueue[]
+  loginLogs   LoginLog[]
+  accountVerificationCode AccountVerificationCode[]
+
+  activity ActivityLog[]
+
+  verificationSessions VerificationSession[]
+  securityLogs         SecurityLog[]
+  sessions             DeviceSession[]
+  refreshTokens  RefreshToken[]
+
+  emails   Email[]
+
+  isStoreOwner Boolean  @default(false)
+
+  listings    Listing[]
+  store     Store?   
+  storeId   String?  @unique
+  storeLikes  StoreLike[]
+  followedStores StoreFollower[]
+  notifications  Notification[] @relation("UserNotifications")
+  pushSubscriptions PushSubscription[]
+
+  photoPackPurchases  ListingPhotoPack[]
+
+  @@map("users")
+}
+
+model Email {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+
+  email         String   @unique
+  type          EmailType
+  verified      Boolean  @default(false)
+  isLoginAllowed Boolean @default(false)
+  notifications Boolean @default(true)
+  
+  addedAt       DateTime @default(now())
+  verifiedAt    DateTime?
+  lastUsed      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model RefreshToken {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  userId     String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  revoked    Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model DeviceSession {
+  id             String   @id @default(cuid())
+  userId         String
+  ip             String
+  country        String?
+  city           String?
+  browser        String
+  os             String
+  device         String
+  isMobile       Boolean  @default(false)
+  isTablet       Boolean  @default(false)
+  isBot          Boolean  @default(false)
+  lastUsed       DateTime @default(now())
+  verified       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  trusted        Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, ip, browser, os, device])
+  @@map("device_sessions")
+  @@index([userId])
+}
+
+model VerificationSession {
+  id          String   @id @default(cuid())
+  userId      String
+  code        String
+  method      String   // 'phone', 'email', 'push'
+  reason      String   // 'security_check', 'login', 'sensitive_action'
+  status      String   @default("pending") // 'pending', 'verified', 'expired', 'blocked'
+  attempts    Int      @default(0)
+  maxAttempts Int      @default(3)
+  expiresAt   DateTime
+  verifiedAt  DateTime?
+  ip             String
+  browser        String
+  os             String
+  device         String
+  isMobile       Boolean  @default(false)
+  isTablet       Boolean  @default(false)
+  isBot          Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("verification_sessions")
+}
+
+model SecurityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  alertType   String   // 'suspicious_login', 'new_device', 'location_change'
+  severity    String   // 'low', 'medium', 'high', 'critical'
+  message     String
+  ip             String
+  browser        String
+  os             String
+  device         String
+  triggeredBy  String   // 'user', 'system'
+  country      String?
+  city         String?
+  acknowledged Boolean @default(false)
+  createdAt   DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("security_logs")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  usedAt    DateTime?
+  
+  // Métadonnées de sécurité
+  ip             String
+  browser        String
+  os             String
+  device         String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("password_reset_tokens")
+}
+
+model Listing {
+  id          String    @id @default(cuid())
+  details     Json     @default("{}")
+  searchableTerms  Json     @default("{}")
+
+  // Statut et modération
+  status      ListingStatus  @default(PENDING)
+  moderationStatus  ModerationStatus @default(PENDING)
+  moderationNotes   String?
+  moderatedAt       DateTime?
+  moderatedBy       String?
+  rejectionReason   String?
+
+  isActive    Boolean   @default(true)     // Pour activer/désactiver
+  isSold    Boolean   @default(false)
+  isSponsored    Boolean   @default(false)
+  location    Json     @default("{}")
+
+  // Dates importantes
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  publishedAt       DateTime?
+  deletedAt         DateTime?
+  expiresAt         DateTime?
+
+  // Foreign Keys
+  userId     String   @unique
+  storeId    String?
+
+  categoryId      String?
+  category        ListingCategory? @relation("CategoryListings", fields: [categoryId], references: [id])
+  subcategory String?
+
+  // Relations
+  store     Store?      @relation(fields: [storeId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+    
+  // Relations
+  views     ListingView[]
+  clicks    ListingClick[]
+  images    ListingImage[]
+  likes     ListingLikes[]
+  messages  Message[]
+  shares    ListingShare[]
+  comments  Comment[]
+  reviews   Review[]
+  reports   Report[]
+  moderationQueue   ModerationQueue[]
+
+  photoPacks          ListingPhotoPack[]
+
+  // Visibilité (nouveau champ)
+  audience    ListingAudience @default(PUBLIC)
+
+  @@map("listings")
+}
+
+model ListingCategory {
+  id            String               @id @default(cuid())
+  name          String
+  slug          String               @unique
+  icon          String?              // Icône CSS ou URL
+  image         String?              // Image illustrative
+  parentId      String?              
+  parent        ListingCategory?     @relation("CategoryChildren", fields: [parentId], references: [id])
+  children      ListingCategory[]    @relation("CategoryChildren")
+
+  listings      Listing[]            @relation("CategoryListings")
+
+  isSensitive Boolean              @default(false)
+
+  formSchema  Json?
+  
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+model ListingImage {
+  id       String @id @default(cuid())
+  userId        String
+  order    Int    @default(0)
+  isMain        Boolean  @default(false)
+  thumbnails    String?  // JSON des URLs des miniatures
+  uploadedAt    DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Foreign Key (corrigé)
+  listingId String
+
+  // Relation (corrigée)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+ 
+  @@map("ad_images")
+  @@index([listingId])
+  @@index([isMain])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  readAt     DateTime?
+  status     MessageStatus @default(SENT)
+
+  // Foreign Keys (corrigés)
+  senderId  String
+  listingId String
+
+  // Relations (corrigées)
+  sender  User    @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      @default(5) // entre 1 et 5
+  comment   String?
+  createdAt DateTime @default(now())
+
+  // Foreign Keys (corrigés)
+  userId    String
+  listingId String
+
+  // Relations (corrigées)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model ListingView {
+  id        String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+
+  // Foreign Keys
+  userId    String?
+  listingId String
+
+  city       String?
+  country    String?
+
+  // Relations
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([listingId, userId]) // 🔒 Empêche les doublons côté base
+  @@map("views")
+}
+
+model ListingClick {
+  id        String   @id @default(cuid())
+  city       String?
+  country    String?
+  createdAt  DateTime @default(now())
+
+  // Foreign Keys
+  userId    String?
+  listingId String
+
+  // Relations
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  @@unique([listingId, userId])
+  @@map("clicks")
+}
+
+model ListingShare {
+  id        String   @id @default(cuid())
+  city       String?
+  country    String?
+  createdAt  DateTime @default(now())
+
+  // Foreign Keys
+  userId    String?
+  listingId String
+
+  // Relations
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  @@unique([listingId, userId])
+
+  @@map("shares")
+}
+
+model ListingLikes {
+  id        String   @id @default(cuid())
+  city       String?
+  country    String?
+  createdAt  DateTime @default(now())
+
+  // Foreign Keys
+  userId    String?
+  listingId String
+
+  // Relations
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  @@unique([listingId, userId])
+
+  @@map("likes")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  // Foreign Keys
+  userId    String
+  listingId String
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
+}
+
+model VerificationCode {
+  id        String   @id @default(cuid())
+  code      String   // Le code à 6 chiffres
+  type      CodeType // Type de code (EMAIL_VERIFICATION, PASSWORD_RESET, etc.)
+  email     String   // Email associé
+  userId    String?  // Utilisateur associé (optionnel)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attempts  Int      @default(0)  // Nombre de tentatives
+  maxAttempts Int    @default(3)  // Nombre max de tentatives
+  isUsed    Boolean  @default(false)
+  expiresAt DateTime // Date d'expiration
+  createdAt DateTime @default(now())
+
+  @@map("verification_codes")
+}
+
+model TaskLog {
+  id          String   @id @default(cuid())
+  taskName    String   // Nom de la tâche
+  status      String   // SUCCESS, ERROR, WARNING
+  details     String?  // JSON avec les détails
+  executedAt  DateTime @default(now())
+  duration    Int?     // Durée en millisecondes
+  
+  @@map("task_logs")
+}
+
+// Plans d'abonnement
+model Pricing {
+  id          String   @id @default(cuid())
+  name        String   // "Gratuit", "Basic", "Premium", "Pro"
+  slug        String   @unique // "free", "basic", "premium", "pro"
+  description String?
+  price       Float    // Prix en euros
+  duration    Int?
+  originalPrice Float? // Prix avant réduction (pour affichage barré)
+  currency    String   @default("EUR")
+  billingCycle String  // "monthly" ou "yearly"
+  isActive    Boolean  @default(true)
+  
+  // Limites du plan
+  maxListings        Int?     @default(0)  // null = illimité
+  maxPhotosPerListing Int     @default(3)
+  maxVideosPerListing Int     @default(0)
+  listingDurationDays Int     @default(30)  // Durée max d'une annonce
+  
+  // Fonctionnalités booléennes
+  canPromoteListings    Boolean @default(false)
+  canUseAdvancedFilters Boolean @default(false)
+  hasPrioritySupport    Boolean @default(false)
+  hasDedicatedSupport   Boolean @default(false)
+  hasAnalytics          Boolean @default(false)
+  hasPremiumAnalytics   Boolean @default(false)
+  
+  // Fonctionnalités supplémentaires (stockées en JSON)
+  features      Json?
+  
+  // Relations
+  subscriptions Subscription[]
+  
+  // Metadata
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  order         Int      @default(0) // Pour tri personnalisé
+  
+  @@map("pricing_plans")
+  @@unique([slug, billingCycle]) // Un même slug peut exister en mensuel/annuel
+}
+
+// Abonnements des utilisateurs
+model Subscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  planId    String
+  plan      Pricing @relation(fields: [planId], references: [id])
+  
+  status    SubscriptionStatus @default(ACTIVE)
+  
+  // Dates
+  startDate   DateTime @default(now())
+  endDate     DateTime
+  cancelledAt DateTime?
+  
+  // Facturation
+  amount      Float
+  currency    String   @default("EUR")
+  
+  // Renouvellement automatique
+  autoRenew   Boolean  @default(true)
+  
+  // Métadonnées
+  metadata    Json?    // Données supplémentaires
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  payments    Payment[]
+  currentUsers User[] @relation("CurrentSubscription")
+  paymentRetries PaymentRetry[]
+  
+  @@map("subscriptions")
+}
+
+// Paiements
+model Payment {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  subscriptionId String?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  
+  amount        Float
+  currency      String   @default("EUR")
+  status        PaymentStatus @default(PENDING)
+  
+  // Informations de paiement
+  paymentMethod String?  // "card", "paypal", "bank_transfer"
+  transactionId String?  // ID de la transaction externe
+  
+  // Métadonnées du paiement
+  metadata      Json?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("payments")
+}
+
+model PaymentRetry {
+  id             String   @id @default(cuid())
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  
+  scheduledFor   DateTime
+  attemptCount   Int      @default(1)
+  maxAttempts    Int      @default(3)
+  status         String   @default("SCHEDULED") // SCHEDULED, PROCESSING, COMPLETED, FAILED
+  
+  lastAttemptAt  DateTime?
+  nextAttemptAt  DateTime?
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  @@map("payment_retries")
+}
+
+model ModerationQueue {
+  id           String           @id @default(cuid())
+  listingId    String
+  type         ModerationType
+  priority     ModerationPriority @default(NORMAL)
+  status       ModerationQueueStatus @default(PENDING)
+  assignedTo   String?
+  notes        String?
+  submittedAt  DateTime         @default(now())
+  reviewedAt   DateTime?
+  completedAt  DateTime?
+  
+  // Relations
+  listing      Listing               @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  moderator    User?            @relation(fields: [assignedTo], references: [id])
+  
+  @@map("moderation_queue")
+  @@index([status, priority])
+  @@index([assignedTo])
+  @@index([submittedAt])
+}
+
+model Report {
+  id          String      @id @default(cuid())
+  listingId   String
+  reporterId  String
+  reason      ReportReason
+  description String?
+  status      ReportStatus @default(PENDING)
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime    @default(now())
+  
+  // Relations
+  listing     Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  
+  @@map("report")
+  @@index([listingId])
+  @@index([reporterId])
+  @@index([status])
+}
+
+model LoginLog {
+  id          String      @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+
+  country     String?
+  city        String?
+  status      LoginStatus @default(SUCCESS)
+  reason      String?
+  ip             String
+  browser        String
+  os             String
+  device         String
+  isMobile       Boolean  @default(false)
+  isTablet       Boolean  @default(false)
+  isBot          Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@map("login_log")
+}
+
+model AccountVerificationCode {
+  id        String   @id @default(cuid())
+  userId    String
+  code      Int      // ex: 65
+  choices   String   // JSON.stringify([65, 42, 88])
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account_verification_codes")
+}
+
+model Store {
+  id          String   @id @default(cuid())
+  name        String
+  avatar      String?              // logo ou photo de la boutique
+  banner      String?              // image en haut de page de boutique
+  description String?
+  createdAt   DateTime @default(now())
+
+  category    String
+
+  slug      String   @unique
+
+  ownerId     String   @unique // 🔐 1 seul store par utilisateur
+  owner       User     @relation(fields: [ownerId], references: [id])
+
+  status      StoreStatus @default(PENDING) // état de validation (admin)
+  isActive    Boolean  @default(false) // activé ou non
+  isVerified  Boolean   @default(false)
+  likes       StoreLike[]
+  listings  Listing[]
+  badges    StoreBadge[]
+  notifications  Notification[] @relation("StoreNotifications")
+  followers  StoreFollower[]
+  visits    StoreVisit[]
+}
+
+model StoreVisit {
+  id        String   @id @default(uuid())
+  store     Store    @relation(fields: [storeId], references: [id])
+  storeId   String
+  userId    String?  // null si visiteur non connecté
+  city      String?
+  country   String?
+  createdAt DateTime @default(now())
+
+  @@index([storeId, userId])
+}
+
+model StoreLike {
+  id        String   @id @default(cuid())
+  userId    String
+  storeId   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  store     Store    @relation(fields: [storeId], references: [id])
+
+  @@unique([userId, storeId]) // 👈 un seul like par user par store
+}
+
+model StoreFollower {
+  id        String   @id @default(cuid())
+  userId    String
+  storeId   String
+  followedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  store     Store    @relation(fields: [storeId], references: [id])
+
+  @@unique([userId, storeId]) // un utilisateur ne peut suivre une boutique qu'une seule fois
+}
+
+
+model Badge {
+  id     String  @id @default(cuid())
+  name   BadgeName  @unique    // ex: "verified", "pro"
+  label  String              // ex: "Vérifiée", "Pro"
+  color  String              // ex: "#065f46"
+  bg     String              // ex: "#d1fae5"
+  stores StoreBadge[]
+}
+
+model StoreBadge {
+  id       String   @id @default(cuid())
+  store    Store    @relation(fields: [storeId], references: [id])
+  storeId  String
+  badge    Badge    @relation(fields: [badgeId], references: [id])
+  badgeId  String
+
+  @@unique([storeId, badgeId])
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  targetType  TargetType     // enum: USER | STORE
+  userId      String?        // facultatif si targetType = STORE
+  storeId     String?        // facultatif si targetType = USER
+
+  type        NotificationType
+  message     String
+  metadata    Json?
+  isRead      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  user        User?     @relation("UserNotifications", fields: [userId], references: [id], map: "fk_user_notification")
+  store       Store?    @relation("StoreNotifications", fields: [storeId], references: [id], map: "fk_store_notification")
+}
+
+model PushSubscription {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @unique
+  endpoint   String   @unique
+  expirationTime DateTime?
+  p256dh       String
+  auth         String
+  createdAt    DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  action    String   // e.g. "CHANGE_PASSWORD", "CREATE_STORE"
+  metadata  Json?    // optionnel, pour stocker des détails (nom boutique, email, IP...)
+  createdAt DateTime @default(now())
+}
+
+model PhotoPack {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  name         String
+  description  String?
+  extraImages  Int
+  durationDays Int      @default(15)
+  price        Int
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  // Ajout de champs supplémentaires
+  listings     Int?                     // nombre d'annonces concernées
+  features     String[]                 // liste des fonctionnalités
+  icon         String?                  // nom d’icône (Camera, Zap, etc.)
+  color        String?                  // code couleur ou nom
+  popular      Boolean? @default(false) // flag d’affichage
+
+  purchases    ListingPhotoPack[]
+}
+
+model ListingPhotoPack {
+  id          String     @id @default(cuid())
+  userId      String
+  listingId   String
+  packId      String
+  extraImages Int
+  expiresAt   DateTime
+  used        Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+
+  // Relations
+  user        User       @relation(fields: [userId], references: [id])
+  listing     Listing    @relation(fields: [listingId], references: [id])
+  pack        PhotoPack  @relation(fields: [packId], references: [id])
+}
+
+enum StoreStatus {
+  PENDING   // en attente de validation
+  APPROVED  // approuvé par l'admin
+  SUSPENDED // suspendu (comportement abusif, signalement, etc.)
+  BANNED    // banni définitivement
+}
+
+enum Condition {
+  NEW        // Neuf
+  LIKE_NEW   // Comme neuf
+  VERY_GOOD  // Très bon état
+  GOOD       // Bon état
+  FAIR       // État correct
+  POOR       // Mauvais état
+}
+
+enum ListingStatus {
+  PENDING    // En attente de modération
+  ACTIVE     // Publiée et active
+  INACTIVE   // Désactivée par l'utilisateur
+  EXPIRED    // Expirée
+  REJECTED   // Rejetée par la modération
+  DELETED    // Supprimée
+  APPROVED   // Approuvée
+}
+
+enum ModerationStatus {
+  PENDING    // En attente de modération
+  APPROVED   // Approuvée
+  REJECTED   // Rejetée
+  FLAGGED    // Signalée pour révision
+}
+
+enum PriceType {
+  FIXED      // Prix fixe
+  NEGOTIABLE // Prix négociable
+  FREE       // Gratuit
+  AUCTION    // Enchère
+}
+
+enum ModerationQueueStatus {
+  PENDING    // En attente
+  IN_REVIEW  // En cours de révision
+  COMPLETED  // Terminé
+  ESCALATED  // Escaladé
+}
+
+enum GenderVisibility {
+  PRIVATE    // Privé
+  PUBLIC     // Public
+}
+
+enum ReportReason {
+  SPAM           // Spam
+  INAPPROPRIATE  // Contenu inapproprié
+  FRAUD          // Fraude
+  DUPLICATE      // Doublon
+  WRONG_CATEGORY // Mauvaise catégorie
+  FAKE_ITEM      // Article factice
+  OTHER          // Autre
+}
+
+enum ReportStatus {
+  PENDING    // En attente
+  REVIEWED   // Examiné
+  RESOLVED   // Résolu
+  DISMISSED  // Rejeté
+}
+
+enum MessageStatus {
+  SENT       // Envoyé
+  DELIVERED  // Livré
+  READ       // Lu
+}
+
+enum Role {
+  USER       // Utilisateur standard
+  MODERATOR  // Modérateur
+  ADMIN      // Administrateur
+  SUPER_ADMIN // Super administrateur
+}
+
+enum CodeType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+  PHONE_VERIFICATION
+  TWO_FACTOR_AUTH
+}
+
+enum TargetType {
+  USER
+  STORE
+}
+
+enum NotificationType {
+  ACCOUNT_INACTIVE
+  EMAIL_UNVERIFIED
+  STORE_PENDING
+  STORE_APPROVED
+  STORE_REJECTED
+  NEW_SUBSCRIBER
+  NEW_LISTING
+  LISTING_DELETED
+  STORE_CREATED
+  STORE_FOLLOWED
+  STORE_UNFOLLOWED
+  NEW_STORE
+  PLAN_SUBSCRIBED
+  PAYMENT_SUCCESSFUL
+  PAYMENT_FAILED
+  IDENTITY_VERIFICATION
+}
+
+enum ListingAudience {
+  ONLY_ME
+  PUBLIC
+  FOLLOWERS
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  SUSPENDED
+  PENDING
+}
+
+enum EmailType {
+  PRIMARY
+  RECOVERY
+  SECONDARY
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum ModerationType {
+  NEW_AD     // Nouvelle annonce
+  EDIT_AD    // Modification d'annonce
+  REPORT     // Signalement
+  APPEAL     // Appel de décision
+}
+
+enum ModerationPriority {
+  LOW        // Priorité basse
+  NORMAL     // Priorité normale
+  HIGH       // Priorité haute
+  URGENT     // Urgent
+}
+
+enum LoginStatus {
+  SUCCESS
+  FAILURE
+}
+
+enum BadgeName {
+  verified  // Email + téléphone + pièce d'identité validés
+  pro       // Abonnement pro actif
+  trusted   // 95% d'avis positifs
+  top_seller // Top vendeur 100+ ventes ce mois
+  new       // Nouveau	Moins de 7 jours
+}

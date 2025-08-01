@@ -1,0 +1,136 @@
+@import '../fonts';
+@import '../variables';
+
+/* Wrapper styles */
+.spinner-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.spinner-wrapper.spinner-with-text {
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Text styles */
+.spinner-text {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Overlay styles */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    backdrop-filter: blur(2px);
+}
+
+.spinner-overlay--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Component customizations */
+.spinner-component {
+    display: inline-block;
+}
+
+/* Custom color overrides for better integration */
+.spinner-wrapper .spinner-component>div {
+    transition: all 0.2s ease;
+}
+
+/* Size variants */
+.spinner-xs {
+    --spinner-size: 12px;
+}
+
+.spinner-sm {
+    --spinner-size: 16px;
+}
+
+.spinner-md {
+    --spinner-size: 24px;
+}
+
+.spinner-lg {
+    --spinner-size: 32px;
+}
+
+.spinner-xl {
+    --spinner-size: 48px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .spinner-overlay {
+        padding: 20px;
+    }
+
+    .spinner-text {
+        font-size: 13px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .spinner-text {
+        color: #94a3b8;
+    }
+
+    .spinner-overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .spinner-overlay {
+        transition: none;
+    }
+
+    .spinner-component {
+        animation-duration: 3s !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .spinner-text {
+        color: #000;
+        font-weight: 600;
+    }
+}
+
+/* Button integration styles */
+.btn-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-spinner .spinner-wrapper {
+    flex-direction: row;
+    gap: 6px;
+}
+
+.btn-spinner .spinner-text {
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+}

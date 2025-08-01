@@ -1,0 +1,71 @@
+@import './fonts';
+@import './variables';
+
+
+
+
+.landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: $five;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+
+    .eclipse {
+        border-radius: 50%;
+    }
+
+
+    .four {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 800px;
+        height: 800px;
+        background-color: $four;
+
+
+        .three {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: 600px;
+            background-color: $three;
+
+
+            .two {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+                width: 400px;
+                height: 400px;
+                background-color: $two;
+
+
+                .one {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 200px;
+                    height: 200px;
+                    background-color: $two;
+                    background-image: url(../assets/icons/logo-letter-light.png);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+}

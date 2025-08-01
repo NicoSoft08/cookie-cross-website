@@ -1,0 +1,144 @@
+@import '../fonts';
+@import '../variables';
+
+.Input-field {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    margin: 1.5rem auto;
+
+    label {
+        font-weight: $font-regular;
+        margin-bottom: 0.5rem;
+        color: $gray-700;
+        font-size: 0.95rem;
+
+        .compulsory {
+            color: #e63946;
+            margin-left: 4px;
+        }
+    }
+
+    input,
+    select,
+    textarea,
+    option {
+        font-family: 'Ubuntu', sans-serif;
+        padding: 0.65rem 0.9rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        color: $gray-600;
+        font-weight: $font-light;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            border-color: $two;
+            box-shadow: 0 0 0 2px rgba(29, 53, 87, 0.15);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+    }
+
+    select[multiple] {
+        height: auto;
+        min-height: 120px;
+        padding: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .radio-group,
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 0.3rem;
+
+        label {
+            font-weight: $font-light;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: $gray-600;
+
+            input {
+                width: 1rem;
+                height: 1rem;
+                margin: 0;
+            }
+        }
+    }
+
+    input[type="file"] {
+        padding: 0.3rem 0;
+        font-size: 0.95rem;
+    }
+
+    .brand-search-wrapper {
+        max-width: 600px;
+
+        input[type=text] {
+           width: auto;
+        }
+    }
+
+    .brand-dropdown {
+        margin-top: 10px;
+        border-radius: 6px;
+        background-color: #f0f0f0;
+
+        .search-hint {
+            padding: 10px;
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            font-weight: $font-light;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .brand-option {
+            display: flex;
+            align-items: center;
+            margin: 8px;
+            gap: 10px;
+
+            .brand-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .brand-label {
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: $font-light;
+            }
+        }
+    }
+
+    input.error,
+    select.error,
+    textarea.error {
+        border-color: $error-color;
+        // background: $error-color;
+    }
+
+    .error-message {
+        color: $error-color;
+        font-size: 0.8em;
+        margin-top: 0.25rem;
+        display: block;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: $font-light;
+    }
+
+    .required-star {
+        color: $error-color;
+        margin-left: 0.25rem;
+    }
+}

@@ -3,16 +3,13 @@ const { z } = require('zod');
 const router = express.Router();
 
 const { signupSchema, loginSchema } = require('../validations/schema');
-const { register, login } = require('../controllers/auth.controller');
-
-// Simple "DB" mémoire pour démo (remplacer par vraie base)
-const users = new Map(); // key: email, value: { id, email, passwordHash, createdAt }
+const authController = require('../controllers/auth.controller');
 
 // register
 router.post('/register', async (req, res) => {
     try {
         const { email, password, username } = signupSchema.parse(req.body);
-        const newUser = await register(email, password, username);
+        const newUser = await authController.register(email, password, username);
 
         if (!newUser) {
             return res.status(409).json({ error: 'Utilisateur existe déjà ou donnée invalide.' });
@@ -53,7 +50,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = loginSchema.parse(req.body);
-        const user = await login(email, password);
+        const user = await authController.login(email, password);
 
         if (!user) {
             return res.status(401).json({ error: 'Identifiants invalides.' });

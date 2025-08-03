@@ -14,16 +14,16 @@ if (!process.env.SESSION_SECRET) {
 
 const sessionOptions = {
     name: 'session',
-    secret: process.env.SESSION_SECRET || 'dev-secret-fallback', // fallback en dev,
+    secret: process.env.SESSION_SECRET || 'dev-secret-fallback',
     resave: false,
     saveUninitialized: false,
     cookie: {
         path: '/',
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24, // 1 jour
-        secure: prod && !isLocalhost,                // HTTPS uniquement en prod
+        secure: prod && !isLocalhost,
         sameSite: prod ? 'none' : 'lax',
-        ...(prod ? { domain: process.env.COOKIE_DOMAIN } : {}), // ex: '.example.com'
+        ...(prod ? { domain: process.env.COOKIE_DOMAIN } : {}),
     },
 };
 

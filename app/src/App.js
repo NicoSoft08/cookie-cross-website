@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const AUTH_URL = process.env.REACT_APP_AUTH_URL || 'http://localhost:3001';
+const ID_URL = process.env.REACT_APP_ID_URL || 'http://localhost:3002';
 
 function App() {
   const [info, setInfo] = useState(null);
@@ -47,6 +48,8 @@ function App() {
         <h1>App</h1>
         <button onClick={() => window.location.href = `${AUTH_URL}`}>Login (simulate)</button>
         <pre>{JSON.stringify(info, null, 2)}</pre>
+
+        <a href={ID_URL}>Voir Profil</a>
       </div>
     </div>
   );

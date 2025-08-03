@@ -1,0 +1,57 @@
+const bcrypt = require('bcryptjs');
+const prisma = require('../prisma-client/prisma');
+
+exports.register = async (email, password, username) => {
+    try {
+        // Vérifie si l'utilisateur existe déjà
+        const exist = await prisma.user.findUnique({
+            where: { email },
+        });
+
+        if (exist) return null; // déjà pris
+
+        // Hash du mot de passe
+        const salt = await bcrypt.genSalt(12);
+        const hash = await bcrypt.hash(password, salt);
+
+        const created = await prisma.user.create({
+            data: {
+                displayName: username,
+                email,
+                password: hash,
+            },
+        });
+
+        // Ne renvoie pas le hash
+        return {
+            id: created.id,
+            email: created.email,
+            username: created.displayName,
+        };
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+
+exports.login = async (email, password) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { email },
+        });
+
+        if (!user) return null;
+
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) return null;
+
+        return {
+            id: user.id,
+            email: user.email,
+            username: user.displayName,
+        };
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};

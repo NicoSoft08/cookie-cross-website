@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const AUTH_URL = process.env.REACT_APP_AUTH_URL || 'http://localhost:3001';

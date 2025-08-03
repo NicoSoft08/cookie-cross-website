@@ -1,24 +1,53 @@
+import './App.css';
 import { useEffect, useState } from 'react';
-import { AppRouter } from './routes';
-import Landing from './pages/public/Landing';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const AUTH_URL = process.env.REACT_APP_AUTH_URL || 'http://localhost:3001';
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    fetch(`${API_URL}/api/auth/whoami`, {
+      method: 'GET',
+      credentials: 'include', // Include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setInfo(data))
+      .catch((error) => console.error('Error fetching info:', error));
   }, []);
 
+  // useEffect(() => {
+  //   fetch(`${API_URL}/api/auth/test-session`, {
+  //     method: 'GET',
+  //     credentials: 'include', // Include cookies in the request
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => setInfo(data))
+  //     .catch((error) => console.error('Error fetching info:', error));
+  // }, []);
+
   return (
-    <div>
-      {loading ?
-        <Landing />
-        : <AppRouter />
-      }
+    <div className="App"
+      style={{
+        alignItems: 'center',
+        height: '100vh',
+        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      <div>
+        <h1>App</h1>
+        <button onClick={() => window.location.href = `${AUTH_URL}`}>Login (simulate)</button>
+        <pre>{JSON.stringify(info, null, 2)}</pre>
+      </div>
     </div>
   );
 }

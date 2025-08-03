@@ -1,24 +1,20 @@
-import AppRouter from './AppRouter';
-import { useEffect, useState } from 'react';
-import Landing from './components/Landing';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import TestAuthCycle from './pages/TestAuthCycle';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div>
-      {loading ?
-        <Landing />
-        : <AppRouter />
-      }
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/test-auth" element={<TestAuthCycle />} />
+        </Routes>
+      </Router>
+      
     </div>
   );
 }

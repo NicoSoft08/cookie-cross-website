@@ -1,7 +1,6 @@
 {
-  "short_name": "AdsCity Auth",
-  "name": "AdsCity Authentification",
-  "description": "Module sécurisé d'authentification d'AdsCity : connexion, inscription, réinitialisation de mot de passe.",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,10 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "id": "/",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#343a40",
-  "orientation": "portrait",
+  "theme_color": "#000000",
   "background_color": "#ffffff"
 }

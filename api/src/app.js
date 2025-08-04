@@ -6,10 +6,10 @@ const cors = require('cors');
 const sessionOptions = require('./config/sessionConfig');
 const { corsOptions, whitelist } = require('./config/corsConfig');
 const authRoutes = require('./routes/auth.routes');
+const debugSession = require('./config/debugSession');
 
 const app = express();
 
-// Middlewares
 // 1. CORS pour requêtes normales
 app.use(cors(corsOptions));
 
@@ -37,6 +37,8 @@ app.use(helmet());
 // Rest of your configuration...
 app.set('trust proxy', 1);
 app.use(session(sessionOptions));
+
+app.use(debugSession());
 
 // Security headers...
 app.use('/api/auth', authRoutes);

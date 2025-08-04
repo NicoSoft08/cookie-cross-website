@@ -7,10 +7,11 @@ const sessionOptions = {
     resave: false,
     saveUninitialized: false,
     cookie: {
+        path: '/',
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
-        secure: true,              // HTTPS requis ; mkcert le fournit localement
-        sameSite: 'none',          // nécessaire pour cross-subdomain
+        secure: false,            // HTTPS requis ; mkcert le fournit localement
+        sameSite: 'lax',          // nécessaire pour cross-subdomain
         // en local on **n’impose pas domain** pour éviter les subtilités ; en prod :
         ...(prod && !isLocalhost ? { domain: '.adscity.net' } : {}),
     },

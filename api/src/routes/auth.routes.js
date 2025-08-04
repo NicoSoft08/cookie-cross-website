@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { signupSchema, loginSchema } = require('../validations/schema');
 const authController = require('../controllers/auth.controller');
+const { authenticate, requireRoles } = require('../middlewares/auth.middleware');
 
 // register
 router.post('/register', async (req, res) => {
@@ -66,7 +67,7 @@ router.post('/login', async (req, res) => {
             req.session.user = {
                 id: user.id,
                 email: user.email,
-                username: user.username,
+                displayName: user.displayName,
             };
 
             req.session.save((saveErr) => {
@@ -74,6 +75,16 @@ router.post('/login', async (req, res) => {
                     console.error('Erreur en sauvegardant la session après login:', saveErr);
                     return res.status(500).json({ error: 'Erreur de session' });
                 }
+
+                // LOG de debug *après* que la session soit définitivement sauvée
+                console.log('>>> [LOGIN] session finale avec user:', {
+                    user: req.session.user,
+                    cookie: {
+                        secure: req.session.cookie?.secure,
+                        sameSite: req.session.cookie?.sameSite,
+                        path: req.session.cookie?.path,
+                    },
+                });
 
                 return res.json({ ok: true, user: req.session.user });
             });
@@ -88,14 +99,9 @@ router.post('/login', async (req, res) => {
 });
 
 // whoami
-router.get('/whoami', (req, res) => {
-    console.log('Cookies:', req.headers.cookie);
-    console.log('Session object:', req.session);
-    
-    if (!req.session?.user) {
-        return res.status(401).json({ authenticated: false, reason: 'no_session', error: 'Not authenticated' });
-    }
-    res.json({ authenticated: true, user: req.session.user });
+router.get('/whoami', authenticate, (req, res) => {
+    // req.user est disponible grâce au middleware
+    res.json({ authenticated: true, user: req.user });
 });
 
 // logout

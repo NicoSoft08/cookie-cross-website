@@ -45,11 +45,7 @@ exports.login = async (email, password) => {
         const match = await bcrypt.compare(password, user.password);
         if (!match) return null;
 
-        return {
-            id: user.id,
-            email: user.email,
-            username: user.displayName,
-        };
+        return user;
     } catch (error) {
         console.error(error);
         return null;

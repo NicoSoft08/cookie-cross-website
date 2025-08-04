@@ -27,6 +27,8 @@ router.post('/register', async (req, res) => {
                 username: newUser.username,
             };
 
+            console.log(req.session.user)
+
             // Forcer la sauvegarde avant de répondre
             req.session.save((saveErr) => {
                 if (saveErr) {
@@ -34,7 +36,7 @@ router.post('/register', async (req, res) => {
                     return res.status(500).json({ error: 'Erreur de session' });
                 }
 
-                res.json({ ok: true, user: req.session.user });
+                return res.json({ ok: true, user: req.session.user });
             });
         });
     } catch (error) {
@@ -73,7 +75,7 @@ router.post('/login', async (req, res) => {
                     return res.status(500).json({ error: 'Erreur de session' });
                 }
 
-                res.json({ ok: true, user: req.session.user });
+                return res.json({ ok: true, user: req.session.user });
             });
         });
     } catch (error) {
@@ -87,8 +89,11 @@ router.post('/login', async (req, res) => {
 
 // whoami
 router.get('/whoami', (req, res) => {
-    if (!req.session || !req.session.user) {
-        return res.status(401).json({ authenticated: false, reason: 'no_session' });
+    console.log('Cookies:', req.headers.cookie);
+    console.log('Session object:', req.session);
+    
+    if (!req.session?.user) {
+        return res.status(401).json({ authenticated: false, reason: 'no_session', error: 'Not authenticated' });
     }
     res.json({ authenticated: true, user: req.session.user });
 });

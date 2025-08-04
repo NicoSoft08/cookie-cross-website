@@ -4,6 +4,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const AUTH_URL = process.env.REACT_APP_AUTH_URL || 'http://localhost:3001';
 
 export default function Register() {
+    const [showPsd, setShowPsd] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -117,11 +118,24 @@ export default function Register() {
                             outline: 'none',
                             fontSize: '16px'
                         }}
-                        type="password"
+                        type={showPsd ? "text" : "password"}
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     />
                 </div>
+
+                <div>
+                    <label htmlFor="showPsd">
+                        <input
+                            type='checkbox'
+                            checked={showPsd}
+                            onChange={() => setShowPsd(!showPsd)}
+                        />
+                        Voir le mot de passe
+                    </label>
+                </div>
+
+
                 <button
                     style={{
                         // width: '100%',

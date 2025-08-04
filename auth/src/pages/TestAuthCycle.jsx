@@ -1,7 +1,7 @@
 // TestAuthCycle.jsx
 import { useState } from 'react';
 
-const AUTH_Base = 'http://localhost:4000'; // adapte si besoin
+const API_URL = 'http://localhost:4000'; // adapte si besoin
 
 const credentials = {
     email: 'alice@example.com',
@@ -42,7 +42,7 @@ export default function TestAuthCycle() {
         setLog([]);
         try {
             append('1. Inscription (register)...');
-            const reg = await post(`${AUTH_Base}/api/auth/register`, credentials);
+            const reg = await post(`${API_URL}/api/auth/register`, credentials);
             append(`   → status=${reg.status}, ok=${reg.ok}, body=${JSON.stringify(reg.data)}`);
 
             if (!reg.ok) {
@@ -51,15 +51,15 @@ export default function TestAuthCycle() {
             }
 
             append('2. Vérification session via whoami après register...');
-            const whoami1 = await get(`${AUTH_Base}/api/auth/whoami`);
+            const whoami1 = await get(`${API_URL}/api/auth/whoami`);
             append(`   → status=${whoami1.status}, ok=${whoami1.ok}, body=${JSON.stringify(whoami1.data)}`);
 
             append('3. Déconnexion (logout)...');
-            const logout = await post(`${AUTH_Base}/api/auth/logout`, {}); // body vide
+            const logout = await post(`${API_URL}/api/auth/logout`, {}); // body vide
             append(`   → status=${logout.status}, ok=${logout.ok}, body=${JSON.stringify(logout.data)}`);
 
             append('4. Vérification session via whoami après logout...');
-            const whoami2 = await get(`${AUTH_Base}/api/auth/whoami`);
+            const whoami2 = await get(`${API_URL}/api/auth/whoami`);
             append(`   → status=${whoami2.status}, ok=${whoami2.ok}, body=${JSON.stringify(whoami2.data)}`);
 
             append('Cycle terminé.');

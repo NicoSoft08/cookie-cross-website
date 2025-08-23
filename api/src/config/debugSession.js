@@ -10,6 +10,9 @@ module.exports = function debugSession() {
         console.log('Origin header:', req.headers.origin);
         console.log('Cookie header:', req.headers.cookie || '<none>');
 
+        console.log('Headers:', req.headers);
+        console.log('Body:', req.body);
+
         // Inspect session (non blocking)
         if (req.session) {
             // Copie minimale pour ne pas exposer autre chose

@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const prisma = require('../prisma-client/prisma');
+const { comparePassword, hashPassword } = require('../utils/jwt');
 
 exports.register = async (email, password, username) => {
     try {
@@ -11,8 +12,7 @@ exports.register = async (email, password, username) => {
         if (exist) return null; // déjà pris
 
         // Hash du mot de passe
-        const salt = await bcrypt.genSalt(12);
-        const hash = await bcrypt.hash(password, salt);
+        const hash = await hashPassword(password);
 
         const created = await prisma.user.create({
             data: {
@@ -42,7 +42,7 @@ exports.login = async (email, password) => {
 
         if (!user) return null;
 
-        const match = await bcrypt.compare(password, user.password);
+        const match = await comparePassword(password, user.password);
         if (!match) return null;
 
         return user;

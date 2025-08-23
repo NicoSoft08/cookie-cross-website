@@ -1,23 +1,32 @@
-const prod = process.env.NODE_ENV === 'production';
+const pgSessionFactory = require('connect-pg-simple');
 
-if (!process.env.SESSION_SECRET) {
-    console.error('❌ SESSION_SECRET manquant en production, arrêt.');
-    process.exit(1);
-}
+module.exports = (session) => {
+    const prod = process.env.NODE_ENV === 'production';
+    const pgSession = pgSessionFactory(session);
 
-const sessionOptions = {
-    name: 'session',
-    secret: process.env.SESSION_SECRET, // obligatoire en prod
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        domain: '.adscity.net',   // partage entre sous-domaines
-        path: '/',
-        httpOnly: true,
-        secure: true,             // HTTPS uniquement
-        sameSite: 'none',         // nécessaire pour cross-site (app.adscity.net ←→ api.adscity.net)
-        maxAge: 1000 * 60 * 60 * 24, // 1 jour
-    },
+    const days = Number(process.env.SESSION_MAX_AGE_DAYS || 30);
+    const maxAge = days * 24 * 60 * 60 * 1000;
+
+    return {
+        store: new pgSession({
+            conString: process.env.DATABASE_URL,
+            tableName: 'user_sessions',
+            createTableIfMissing: true,
+            // ttl en secondes (optionnel) — sinon basé sur cookie.maxAge
+            // ttl: Math.floor(maxAge / 1000),
+            errorLog: console.error,
+        }),
+        name: process.env.SESSION_NAME || 'adscity.sid',
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            path: '/',
+            httpOnly: true,
+            secure: prod,       // Secure en prod (https)
+            sameSite: 'lax',    // multi-sous-domaines = même site (ok)
+            maxAge,
+            ...(prod ? { domain: process.env.COOKIE_DOMAIN } : {}),
+        },
+    };
 };
-
-module.exports = sessionOptions;

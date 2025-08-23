@@ -1,6 +1,15 @@
-exports.authenticate = async (req, res, next) => {
+const rateLimit = require('express-rate-limit');
+
+exports.rateLimitAuth = rateLimit({
+    windowMs: 60 * 1000,       // 1 min
+    max: 5,                    // 5 tentatives par minute
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many attempts, please try again later.' },
+});
+
+exports.authenticate = (req, res, next) => {
     if (!req.session || !req.session.user) {
-        console.warn('Session manquante pour', req.ip, req.originalUrl);
         return res.status(401).json({
             authenticated: false,
             reason: 'no_session',

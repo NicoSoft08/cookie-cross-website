@@ -9,6 +9,8 @@ const ID_URL = process.env.REACT_APP_ID_URL || 'http://localhost:3002';
 function App() {
   const [info, setInfo] = useState(null);
 
+  useEffect(() => { document.title = "AdsCity | Publiez - Vendez - Echangez" }, []);
+
   useEffect(() => {
     fetch(`${API_URL}/api/auth/whoami`, {
       method: 'GET',
@@ -35,6 +37,14 @@ function App() {
   //     .catch((error) => console.error('Error fetching info:', error));
   // }, []);
 
+  const handleNavigateToAuth = () => {
+    window.location.href = AUTH_URL;
+  }
+
+  const handleNavigateToId = () => {
+    window.location.href = ID_URL;
+  }
+
   return (
     <div
       className="text-center"
@@ -58,6 +68,8 @@ function App() {
         >
           Bienvenue sur l'application principale. Utilisez la navigation ci-dessus pour accéder aux différents services.
         </p>
+
+        {JSON.stringify(info)}
 
         <div
           className="grid md:grid-cols-2 gap-6"
@@ -83,7 +95,8 @@ function App() {
             </p>
             <div
               className="text-xs text-green-600 font-mono bg-green-100 p-2 rounded"
-              style={{ fontSize: '0.75rem', color: '#14532d', backgroundColor: '#bbf7d0', padding: '0.5rem', borderRadius: '0.25rem' }}
+              style={{ fontSize: '0.75rem', color: '#14532d', backgroundColor: '#bbf7d0', padding: '0.5rem', borderRadius: '0.25rem', cursor: 'pointer' }}
+              onClick={handleNavigateToAuth}
             >
               Domaine: auth.adscity.net
             </div>
@@ -109,7 +122,8 @@ function App() {
             </p>
             <div
               className="text-xs text-orange-600 font-mono bg-orange-100 p-2 rounded"
-              style={{ fontSize: '0.75rem', color: '#7c2d12', backgroundColor: '#fcd34d', padding: '0.5rem', borderRadius: '0.25rem' }}
+              style={{ fontSize: '0.75rem', color: '#7c2d12', backgroundColor: '#fcd34d', padding: '0.5rem', borderRadius: '0.25rem', cursor: 'pointer' }}
+              onClick={handleNavigateToId}
             >
               Domaine: id.adscity.net
             </div>

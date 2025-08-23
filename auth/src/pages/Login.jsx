@@ -3,6 +3,7 @@ import { LogIn } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const APP_URL = process.env.REACT_APP_HOME_URL || 'http://localhost:3000';
+const ID_URL = process.env.REACT_APP_ID_URL || 'http://localhost:3002';
 
 export default function Login() {
     const [showPsd, setShowPsd] = useState(false);
@@ -11,6 +12,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
 
     // 1. whoami pour savoir si connecté
     useEffect(() => {
@@ -23,6 +25,9 @@ export default function Login() {
                 const data = await res.json();
                 if (res.ok && data.authenticated) {
                     setUser(data.user);
+                    setTimeout(() => {
+                        window.location.href = ID_URL;
+                    }, 2000) // 2s
                 } else {
                     setError('Aucun utilisateur authentifié.');
                 }

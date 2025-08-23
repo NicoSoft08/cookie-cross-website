@@ -45,7 +45,9 @@ export default function Identity() {
                 <h2
                     className="text-2xl font-bold text-gray-900 mb-6"
                     style={{ fontSize: '24px', fontWeight: 'bold', color: '#1F2937', marginBottom: '24px' }}
-                >Service d'Identité</h2>
+                >
+                    Service d'Identité
+                </h2>
 
                 {user ? (
                     <div
@@ -88,7 +90,8 @@ export default function Identity() {
                             style={{ lineHeight: '1.5', marginBottom: '16px' }}
                             className="text-red-700 mb-4"
                         >
-                            Aucune session valide détectée.</p>
+                            Aucune session valide détectée.
+                        </p>
                         <p
                             style={{ fontSize: '14px', color: '#B91C1C' }}
                             className="text-sm text-red-600"
